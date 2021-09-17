@@ -9,7 +9,7 @@ export default function Post({ id }) {
 
       <p>This is My blog App</p>
 
-      <a href={`/blog/${id}`}>
+      <a href={process.env.PUBLIC_URL + `/blog/${id}`}>
         <a className="btn">Read More</a>
       </a>
     </div>
