@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+
 export default function Post({ id }) {
   return (
     <div className="card">
@@ -8,10 +10,9 @@ export default function Post({ id }) {
       <h3>Hello There 😀</h3>
 
       <p>This is My blog App</p>
-
-      <a href={process.env.PUBLIC_URL + `/blog/${id}`}>
-        <a className="btn">Read More</a>
-      </a>
+      <Link to={`/blog/${id}`} className="btn">
+        Read More
+      </Link>
     </div>
   );
 }
