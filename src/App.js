@@ -7,17 +7,9 @@ const Routing = () => {
   console.log(process.env.PUBLIC_URL);
   return (
     <Switch>
-      <Route exact path={process.env.PUBLIC_URL + "/login"} component={Login} />
-      <Route
-        exact
-        path={process.env.PUBLIC_URL + "/blog/:id"}
-        component={Blog}
-      />
-      <Route
-        exact
-        path={process.env.PUBLIC_URL + "*"}
-        component={LandingPage}
-      />
+      <Route exact path="/login" component={Login} />
+      <Route exact path="/blog/:id" component={Blog} />
+      <Route exact path="*" component={LandingPage} />
     </Switch>
   );
 };
@@ -60,7 +52,7 @@ const LandingPage = () => (
 
 function App() {
   return (
-    <Router>
+    <Router basename={process.env.PUBLIC_URL}>
       <Routing />
     </Router>
   );
