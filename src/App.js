@@ -1,6 +1,6 @@
 import Post from "./components/blog/blog";
 import Header from "./components/header/header";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { HashRouter as Router, Route, Switch } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 
 const Routing = () => {
@@ -52,7 +52,7 @@ const LandingPage = () => (
 
 function App() {
   return (
-    <Router basename={process.env.PUBLIC_URL}>
+    <Router>
       <Routing />
     </Router>
   );
