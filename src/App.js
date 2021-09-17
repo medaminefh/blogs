@@ -41,10 +41,10 @@ const Login = () => {
 const LandingPage = () => (
   <>
     <Header />
-    <div className="posts">
-      <Post />
-      <Post />
-      <Post />
+    <div className="container posts">
+      <Post id={1} />
+      <Post id={2} />
+      <Post id={3} />
     </div>
   </>
 );

@@ -1,4 +1,4 @@
-export default function Post() {
+export default function Post({ id }) {
   return (
     <div className="card">
       <img src="" alt="" />
@@ -9,7 +9,7 @@ export default function Post() {
 
       <p>This is My blog App</p>
 
-      <a href={`/blog/1`}>
+      <a href={`/blog/${id}`}>
         <a className="btn">Read More</a>
       </a>
     </div>
