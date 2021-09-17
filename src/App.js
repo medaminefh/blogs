@@ -4,11 +4,20 @@ import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { GoogleLogin } from "react-google-login";
 
 const Routing = () => {
+  console.log(process.env.PUBLIC_URL);
   return (
     <Switch>
-      <Route exact path="/login" component={Login} />
-      <Route exact path="/blog/:id" component={Blog} />
-      <Route exact path="/*" component={LandingPage} />
+      <Route exact path={process.env.PUBLIC_URL + "/login"} component={Login} />
+      <Route
+        exact
+        path={process.env.PUBLIC_URL + "/blog/:id"}
+        component={Blog}
+      />
+      <Route
+        exact
+        path={process.env.PUBLIC_URL + "*"}
+        component={LandingPage}
+      />
     </Switch>
   );
 };
