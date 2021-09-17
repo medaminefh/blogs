@@ -1,5 +1,3 @@
-import { Link, Router } from "react-router-dom";
-
 export default function Post() {
   return (
     <div className="card">
