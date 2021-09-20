@@ -18,11 +18,12 @@ const Routing = () => {
 const LandingPage = () => (
   <>
     <Header />
-    <div className="container posts">
+    <div className="container posts mb-5">
       <Card categories={["HTML", "CSS", "Javascript", "Python"]} id={1} />
       <Card categories={["Javascript", "CSS", "Python"]} id={2} />
       <Card categories={["HTML", "Python"]} id={3} />
     </div>
+    <footer className="text-secondary text-center">&copy;medaminefh</footer>
   </>
 );
 
