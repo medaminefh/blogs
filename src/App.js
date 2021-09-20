@@ -1,10 +1,11 @@
-import Post from "./components/blog/blog";
-import Header from "./components/header/header";
+import Card from "./components/Card/card";
+import Header from "./components/Header/header";
+import Login from "./components/Login/login";
+import Blog from "./components/Blog/blog";
+
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
-import { GoogleLogin } from "react-google-login";
 
 const Routing = () => {
-  console.log(process.env.PUBLIC_URL);
   return (
     <Switch>
       <Route exact path="/login" component={Login} />
@@ -14,38 +15,13 @@ const Routing = () => {
   );
 };
 
-const Blog = ({ match }) => {
-  const { id } = match.params;
-
-  return <h1>Blogs N°{id}</h1>;
-};
-
-const Login = () => {
-  const responseGoogle = async (response) => {
-    try {
-      console.log(response);
-    } catch (err) {
-      console.log(err);
-    }
-  };
-  return (
-    <div className="mt-5 d-flex flex justify-content-center align-items-center">
-      <GoogleLogin
-        clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
-        buttonText="Login with google"
-        onSuccess={responseGoogle}
-      />
-    </div>
-  );
-};
-
 const LandingPage = () => (
   <>
     <Header />
     <div className="container posts">
-      <Post id={1} />
-      <Post id={2} />
-      <Post id={3} />
+      <Card categories={["HTML", "CSS", "Javascript", "Python"]} id={1} />
+      <Card categories={["Javascript", "CSS", "Python"]} id={2} />
+      <Card categories={["HTML", "Python"]} id={3} />
     </div>
   </>
 );
