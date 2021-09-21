@@ -1,10 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Card from "./components/Card/card";
 import Header from "./components/Header/header";
 import Login from "./components/Login/login";
 import Blog from "./components/Blog/blog";
 import Footer from "./components/Footer/footer";
 import Alert from "./components/Alert/alert";
+import LoadingPage from "./components/utils/loading";
 
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -21,18 +22,41 @@ const Routing = () => {
 };
 
 const LandingPage = () => {
+  const ServerURL = process.env.REACT_APP_SERVER_URL;
+  const [Blogs, setBlogs] = useState([]);
   const [visible, setVisibility] = useState(true);
   const handleClick = () => setVisibility(false);
 
-  return (
+  const showBlogs = !Blogs.length
+    ? "Nothing"
+    : Blogs.map((blog) => {
+        return (
+          <Card
+            key={blog._id}
+            categories={blog.categories}
+            id={blog._id}
+            createdAt={blog.createdAt}
+            short={blog.short}
+            title={blog.title}
+            long={blog.long}
+          />
+        );
+      });
+
+  useEffect(() => {
+    fetch(ServerURL + "/api/blogs")
+      .then((res) => res.json())
+      .then((data) => {
+        setBlogs(data);
+      });
+  }, []);
+  return Blogs.length ? (
     <>
       {visible && <Alert handleClick={handleClick} />}
-      <div className="posts mb-5">
-        <Card categories={["HTML", "CSS", "Javascript", "Python"]} id={1} />
-        <Card categories={["Javascript", "CSS", "Python"]} id={2} />
-        <Card categories={["HTML", "Python"]} id={3} />
-      </div>
+      <div className="posts mb-5">{showBlogs}</div>
     </>
+  ) : (
+    <LoadingPage />
   );
 };
 

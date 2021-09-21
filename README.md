@@ -1,1 +1,1 @@
-## The UI of my blogs
+## My Blogs App

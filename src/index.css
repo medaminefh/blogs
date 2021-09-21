@@ -117,3 +117,26 @@ ol {
     grid-template-columns: 1fr;
   }
 }
+
+/* For Icons */
+
+.bg-pistach {
+  background-color: #6ecb63;
+}
+
+.bg-darkGreen {
+  background-color: #127719;
+}
+
+.bg-lightBlue {
+  background-color: #a2cdcd;
+}
+.bg-darkBlue {
+  background-color: #316b83;
+}
+.bg-darkPurple {
+  background-color: #610094;
+}
+.bg-lightPurple {
+  background-color: #ae00fb;
+}
