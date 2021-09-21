@@ -6,6 +6,7 @@ import Blog from "./components/Blog/blog";
 import Footer from "./components/Footer/footer";
 import Alert from "./components/Alert/alert";
 import LoadingPage from "./components/utils/loading";
+import AnimeApi from "./components/utils/animeApi";
 
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -53,6 +54,7 @@ const LandingPage = () => {
   return Blogs.length ? (
     <>
       {visible && <Alert handleClick={handleClick} />}
+      <AnimeApi />
       <div className="posts mb-5">{showBlogs}</div>
     </>
   ) : (
