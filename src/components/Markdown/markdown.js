@@ -45,7 +45,7 @@ const Markdown = ({ match, location }) => {
       <Link to={`/blog/${id}`} className="btn btn-back">
         Go Back
       </Link>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleSubmit} className="mb-5">
         <div className="mb-3">
           <label className="form-label">Title</label>
           <input
