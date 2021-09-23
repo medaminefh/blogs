@@ -119,6 +119,19 @@ ol {
 }
 
 /* For Icons */
+.bg-HtmlRed {
+  background-color: #f53900;
+}
+.bg-CssBlue {
+  background-color: #2965f1;
+}
+.bg-JsYellow {
+  background-color: #f7df1e;
+}
+
+.bg-ReactBlue {
+  background-color: #61daf6;
+}
 
 .bg-pistach {
   background-color: #6ecb63;

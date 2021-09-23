@@ -14,16 +14,21 @@ const AnimeApi = () => {
         });
     fetchQuote();
   }, []);
-  return !Quote ? (
-    ""
-  ) : (
+  return (
     <figure className="alert alert-light fade show">
-      <blockquote className="blockquote">
-        <p>{Quote.quote}</p>
-      </blockquote>
-      <figcaption className="blockquote-footer">
-        &copy;<cite title="Source Title">{Quote.character}</cite>
-      </figcaption>
+      {Quote && (
+        <>
+          <blockquote className="blockquote">
+            <p>{Quote.quote}</p>
+          </blockquote>
+          <figcaption className="blockquote-footer">
+            &copy;
+            <cite title="Source Title">
+              <strong>{Quote.character}</strong> from {Quote.anime}
+            </cite>
+          </figcaption>
+        </>
+      )}
     </figure>
   );
 };

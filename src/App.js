@@ -7,6 +7,7 @@ import Footer from "./components/Footer/footer";
 import Alert from "./components/Alert/alert";
 import LoadingPage from "./components/utils/loading";
 import AnimeApi from "./components/utils/animeApi";
+import Markdown from "./components/Markdown/markdown";
 
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -16,6 +17,7 @@ const Routing = () => {
       <Switch>
         <Route exact path="/login" component={Login} />
         <Route exact path="/blog/:id" component={Blog} />
+        <Route exact path="/blog/:id/edit" component={Markdown} />
         <Route exact path="*" component={LandingPage} />
       </Switch>
     </div>
@@ -45,7 +47,7 @@ const LandingPage = () => {
       });
 
   useEffect(() => {
-    fetch(ServerURL + "/api/blogs")
+    fetch(ServerURL + "/blogs")
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);

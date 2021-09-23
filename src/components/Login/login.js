@@ -1,9 +1,12 @@
+import { useState, useEffect } from "react";
 import { GoogleLogin } from "react-google-login";
 
 const Login = () => {
+  const [user, setUser] = useState("");
   const responseGoogle = async (response) => {
     try {
       console.log(response);
+      setUser(response);
     } catch (err) {
       console.log(err);
     }

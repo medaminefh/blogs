@@ -3,7 +3,7 @@ const HandleBadges = ({ category = "" }) => {
   const classes = {
     html: "badge bg-danger text-light",
     css: "badge bg-primary text-light",
-    javascript: "badge bg-warning text-dark",
+    javascript: "badge bg-JsYellow text-dark",
     github: "badge bg-dark text-light",
     python: "badge bg-lightBlue text-dark",
     python3: "badge bg-darkBlue text-light",
@@ -14,9 +14,7 @@ const HandleBadges = ({ category = "" }) => {
   return (
     <span
       className={
-        classes[category]
-          ? classes[category] + " ml-1"
-          : "badge bg-dark text-light ml-1"
+        classes[category] ? classes[category] : "badge bg-dark text-light"
       }
     >
       #{category}
