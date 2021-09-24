@@ -12,7 +12,7 @@ const Login = () => {
     }
   };
   return (
-    <div className="mt-5 d-flex flex justify-content-center align-items-center">
+    <div className="mt-5 mb-5 d-flex flex justify-content-center align-items-center">
       <GoogleLogin
         clientId={process.env.REACT_APP_GOOGLE_CLIENT_ID}
         buttonText="Login with google"

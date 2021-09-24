@@ -16,6 +16,7 @@ const Routing = () => {
     <div className="container">
       <Switch>
         <Route exact path="/login" component={Login} />
+        <Route exact path="/blog/create" component={Markdown} />
         <Route exact path="/blog/:id" component={Blog} />
         <Route exact path="/blog/:id/edit" component={Markdown} />
         <Route exact path="*" component={LandingPage} />
@@ -25,7 +26,10 @@ const Routing = () => {
 };
 
 const LandingPage = () => {
-  const ServerURL = process.env.REACT_APP_SERVER_URL;
+  const ServerURL =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:5000/api"
+      : process.env.REACT_APP_SERVER_URL;
   const [Blogs, setBlogs] = useState([]);
   const [visible, setVisibility] = useState(true);
   const handleClick = () => setVisibility(false);
@@ -53,6 +57,7 @@ const LandingPage = () => {
         setBlogs(data);
       });
   }, []);
+
   return Blogs.length ? (
     <>
       {visible && <Alert handleClick={handleClick} />}
