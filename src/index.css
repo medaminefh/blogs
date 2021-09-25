@@ -26,6 +26,8 @@ img {
 }
 
 header {
+  position: relative;
+  z-index: 2;
   background: steelblue;
   color: #fff;
   padding: 5px;
@@ -34,6 +36,12 @@ header {
 
 header a {
   color: #fff;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  z-index: 2;
 }
 
 .container {
@@ -152,4 +160,12 @@ ol {
 }
 .bg-lightPurple {
   background-color: #ae00fb;
+}
+
+.BgAnimation__svg {
+  position: absolute;
+  left: 0;
+  right: 0;
+  max-height: 100vh;
+  z-index: -1;
 }
