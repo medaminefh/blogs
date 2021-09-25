@@ -9,7 +9,6 @@ import LoadingPage from "./components/utils/loading";
 import AnimeApi from "./components/utils/animeApi";
 import Markdown from "./components/Markdown/markdown";
 import SmoothList from "react-smooth-list";
-import BackgroundAnimation from "./components/Background/backgroundAnimation";
 
 import { HashRouter as Router, Route, Switch } from "react-router-dom";
 
@@ -77,7 +76,6 @@ function App() {
   return (
     <Router>
       <Header />
-      <BackgroundAnimation />
       <Routing />
       <Footer />
     </Router>

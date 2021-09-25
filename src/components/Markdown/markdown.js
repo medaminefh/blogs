@@ -6,7 +6,7 @@ import "easymde/dist/easymde.min.css";
 import { Link, useParams } from "react-router-dom";
 import Loading from "../utils/loading";
 
-const Markdown = ({ match, location }) => {
+const Markdown = ({ location }) => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const [title, setTitle] = useState("");
   const [short, setShort] = useState("");
@@ -78,10 +78,11 @@ const Markdown = ({ match, location }) => {
           <div className="mb-3">
             <label className="form-label">Categories</label>
             <ReactTagInput
+              delimiters={[13, 32, 186, 188]}
               tags={categories || []}
               onChange={(newTags) => {
                 setCategories(newTags);
-                console.log(categories);
+                //console.log(categories);
               }}
             />
           </div>
@@ -117,10 +118,11 @@ const Markdown = ({ match, location }) => {
           <div className="mb-3">
             <label className="form-label">Categories</label>
             <ReactTagInput
+              delimiters={[13, 32, 186, 188]}
               tags={categories || []}
               onChange={(newTags) => {
                 setCategories(newTags);
-                console.log(categories);
+                //console.log(categories);
               }}
             />
           </div>

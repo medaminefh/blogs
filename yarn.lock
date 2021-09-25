@@ -1541,9 +1541,8 @@
     "mkdirp" "^1.0.4"
     "rimraf" "^3.0.2"
 
-"@pathofdev/react-tag-input@^1.0.7":
-  "integrity" "sha512-FxlX+rQhsun7uLDS7PzscJex4Vutq9+RjYlJR+Bf6rh/fH8Drxhl+klrUFxaMRtaTF44tM/jHVl5dxWIhUwejw=="
-  "resolved" "https://registry.npmjs.org/@pathofdev/react-tag-input/-/react-tag-input-1.0.7.tgz"
+"@pathofdev/react-tag-input@github:KarlMaresch/react-tag-input#build":
+  "resolved" "git+ssh://git@github.com/KarlMaresch/react-tag-input.git#d478c2f040ae59ab062851274bbec3c2e89a32a2"
   "version" "1.0.7"
 
 "@pmmmwh/react-refresh-webpack-plugin@0.4.3":
