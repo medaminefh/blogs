@@ -23,7 +23,7 @@ const ProtectedRoute = ({ component: Component, token, path, ...rest }) => {
       {...rest}
       render={(props) => {
         if (!token && path === "/login") {
-          return <component {...rest} {...props} />;
+          return <Component {...rest} {...props} />;
         } else if (token && path !== "/login") {
           return <Component {...rest} {...props} />;
         } else {
