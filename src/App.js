@@ -10,16 +10,49 @@ import AnimeApi from "./components/utils/animeApi";
 import Markdown from "./components/Markdown/markdown";
 import SmoothList from "react-smooth-list";
 
-import { HashRouter as Router, Route, Switch } from "react-router-dom";
+import {
+  HashRouter as Router,
+  Route,
+  Switch,
+  Redirect,
+} from "react-router-dom";
+
+const ProtectedRoute = ({ component: Component, token, path, ...rest }) => {
+  return (
+    <Route
+      {...rest}
+      render={(props) => {
+        if (!token && path === "/login") {
+          return <component {...rest} {...props} />;
+        } else if (token && path !== "/login") {
+          return <Component {...rest} {...props} />;
+        } else {
+          return <Redirect to="/" />;
+        }
+      }}
+    />
+  );
+};
 
 const Routing = () => {
+  const token = localStorage.token;
   return (
     <div className="container">
       <Switch>
-        <Route exact path="/login" component={Login} />
-        <Route exact path="/blog/create" component={Markdown} />
+        <ProtectedRoute exact token={token} path="/login" component={Login} />
+        <ProtectedRoute
+          exact
+          token={token}
+          path="/blog/create"
+          component={Markdown}
+        />
         <Route exact path="/blog/:id" component={Blog} />
-        <Route exact path="/blog/:id/edit" component={Markdown} />
+        <ProtectedRoute
+          exact
+          token={token}
+          path="/blog/:id/edit"
+          component={Markdown}
+        />
         <Route exact path="*" component={LandingPage} />
       </Switch>
     </div>

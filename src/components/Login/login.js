@@ -1,16 +1,30 @@
-import { useState, useEffect } from "react";
 import { GoogleLogin } from "react-google-login";
+import { useHistory } from "react-router-dom";
 
 const Login = () => {
-  const [user, setUser] = useState("");
+  let history = useHistory();
   const responseGoogle = async (response) => {
+    console.log(response.tokenId);
     try {
-      console.log(response);
-      setUser(response);
+      fetch(process.env.REACT_APP_LOGIN_URL, {
+        method: "POST",
+        headers: { "content-type": "application/json" },
+        body: JSON.stringify({ token: response.tokenId }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          console.log(data);
+          if (data.token) {
+            localStorage.token = data.token;
+            return history.push("/");
+          }
+          console.log("Not Authorized");
+        });
     } catch (err) {
       console.log(err);
     }
   };
+
   return (
     <div className="mt-5 mb-5 d-flex flex justify-content-center align-items-center">
       <GoogleLogin

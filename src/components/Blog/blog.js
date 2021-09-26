@@ -8,7 +8,7 @@ const Blog = ({ match, location }) => {
   const { state, pathname } = location;
   const [blog, setBlog] = useState(state || "");
   const { title, short, long, createdAt, categories } = blog;
-  const isAuthorized = true;
+  const token = localStorage.token;
 
   useEffect(() => {
     if (!state) {
@@ -16,6 +16,9 @@ const Blog = ({ match, location }) => {
         .then((res) => res.json())
         .then((data) => {
           setBlog(data);
+          if (token) {
+            setBlog((prev) => ({ ...prev, token }));
+          }
         });
     }
   }, []);
@@ -26,7 +29,7 @@ const Blog = ({ match, location }) => {
         <Link to="/" className="btn btn-back">
           Go Back
         </Link>
-        {isAuthorized && (
+        {token && (
           <Link
             to={{
               pathname: `${pathname}/edit`,

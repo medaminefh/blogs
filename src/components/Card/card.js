@@ -9,6 +9,7 @@ export default function Post({
   long,
   title,
 }) {
+  const token = localStorage.token;
   const dateobj = createdAt ? new Date(createdAt) : new Date();
   function pad(n) {
     return n < 10 ? "0" + n : n;
@@ -45,7 +46,7 @@ export default function Post({
       <Link
         to={{
           pathname: `/blog/${id}`,
-          state: { title, short, long, createdAt, categories },
+          state: { title, short, long, createdAt, categories, token },
         }}
         className="btn"
       >
