@@ -5,13 +5,14 @@ export default function Card({
   id,
   categories,
   createdAt,
+  updatedAt,
   short,
   long,
   title,
   setFilter,
 }) {
   const token = localStorage.token;
-  const dateobj = createdAt ? new Date(createdAt) : new Date();
+  /* const dateobj = createdAt ? new Date(createdAt) : new Date();
   function pad(n) {
     return n < 10 ? "0" + n : n;
   }
@@ -21,7 +22,7 @@ export default function Card({
     "/" +
     pad(dateobj.getMonth() + 1) +
     "/" +
-    dateobj.getFullYear();
+    dateobj.getFullYear(); */
 
   const badges = categories.map((category) => {
     return (
@@ -39,7 +40,9 @@ export default function Card({
     <div className="card">
       <img src="" alt="" />
 
-      <div className="post-date">Posted on {createdAt}</div>
+      <div className="post-date">
+        Posted on {updatedAt === createdAt ? createdAt : updatedAt}
+      </div>
 
       <h3>{title}</h3>
 
@@ -51,7 +54,15 @@ export default function Card({
       <Link
         to={{
           pathname: `/blog/${id}`,
-          state: { title, short, long, createdAt, categories, token },
+          state: {
+            title,
+            short,
+            long,
+            createdAt,
+            updatedAt,
+            categories,
+            token,
+          },
         }}
         className="btn"
       >

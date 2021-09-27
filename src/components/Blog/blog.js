@@ -1,13 +1,14 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import Loading from "../utils/loading";
+import marked from "marked";
 
 const Blog = ({ match, location }) => {
   const SERVER_URL = process.env.REACT_APP_SERVER_URL;
   const { id } = match.params;
   const { state, pathname } = location;
   const [blog, setBlog] = useState(state || "");
-  const { title, short, long, createdAt, categories } = blog;
+  const { title, short, long, createdAt, updatedAt, categories } = blog;
   const token = localStorage.token;
 
   useEffect(() => {
@@ -33,7 +34,7 @@ const Blog = ({ match, location }) => {
           <Link
             to={{
               pathname: `${pathname}/edit`,
-              state: { title, short, long, createdAt, categories },
+              state: { title, short, long, createdAt, updatedAt, categories },
             }}
             className="btn btn-back"
           >
@@ -43,10 +44,17 @@ const Blog = ({ match, location }) => {
       </div>
       <div className="card card-page">
         <h1 className="post-title">{blog.title}</h1>
-        <div className="post-date">Posted on {blog.createdAt}</div>
+        <div className="post-date">
+          Posted on{" "}
+          {blog.updatedAt === blog.createdAt ? blog.createdAt : blog.updatedAt}
+        </div>
         <img src={""} alt="" />
         <div className="post-body">
-          <div>{blog.long}</div>
+          <div
+            dangerouslySetInnerHTML={{
+              __html: marked(blog.long),
+            }}
+          />
         </div>
       </div>
     </>

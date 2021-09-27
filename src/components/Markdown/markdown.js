@@ -3,11 +3,16 @@ import ReactTagInput from "@pathofdev/react-tag-input";
 import "@pathofdev/react-tag-input/build/index.css";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useHistory } from "react-router-dom";
 import Loading from "../utils/loading";
 
 const Markdown = ({ location }) => {
-  const SERVER_URL = process.env.REACT_APP_SERVER_URL;
+  let history = useHistory();
+  const token = localStorage.token;
+  const SERVER_URL =
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:5000/api"
+      : process.env.REACT_APP_SERVER_URL;
   const [title, setTitle] = useState("");
   const [short, setShort] = useState("");
   const [categories, setCategories] = useState("");
@@ -43,11 +48,41 @@ const Markdown = ({ location }) => {
     setTitle(e.target.value);
   };
 
-  const shortChange = (e) => setShort(e.target.value);
+  const shortChange = (e) => {
+    setShort(e.target.value);
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // here where send a post request to the server
+    // if there is an Id then this is the edit form
+    if (id) {
+      fetch(`${SERVER_URL}/blogs/${id}`, {
+        method: "PATCH",
+        headers: { "content-type": "application/json", authorization: token },
+        body: JSON.stringify({ title, short, long: markdown, categories }),
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          // show some Notification in the ui
+          console.log(data);
+          history.push("/");
+        })
+        .catch((err) => console.log(err));
+      return;
+    }
+    console.log(title, short, markdown, categories);
+    fetch(`${SERVER_URL}/blogs`, {
+      method: "POST",
+      headers: { "content-type": "application/json", authorization: token },
+      body: JSON.stringify({ title, short, long: markdown, categories }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        // show some Notification in the ui
+        console.log(data);
+        history.push("/");
+      })
+      .catch((err) => console.log(err));
   };
 
   if (id) {
@@ -113,7 +148,12 @@ const Markdown = ({ location }) => {
           </div>
           <div className="mb-3">
             <label className="form-label">Description</label>
-            <input type="text" className="form-control" />
+            <input
+              value={short}
+              onChange={shortChange}
+              type="text"
+              className="form-control"
+            />
           </div>
           <div className="mb-3">
             <label className="form-label">Categories</label>
