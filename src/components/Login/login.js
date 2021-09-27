@@ -4,7 +4,6 @@ import { useHistory } from "react-router-dom";
 const Login = () => {
   let history = useHistory();
   const responseGoogle = async (response) => {
-    console.log(response.tokenId);
     try {
       fetch(process.env.REACT_APP_LOGIN_URL, {
         method: "POST",

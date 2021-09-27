@@ -1,13 +1,14 @@
 import { Link } from "react-router-dom";
 import HandleBadges from "../utils/handlebadges";
 
-export default function Post({
+export default function Card({
   id,
   categories,
   createdAt,
   short,
   long,
   title,
+  setFilter,
 }) {
   const token = localStorage.token;
   const dateobj = createdAt ? new Date(createdAt) : new Date();
@@ -24,7 +25,11 @@ export default function Post({
 
   const badges = categories.map((category) => {
     return (
-      <div key={Math.random() * 60000}>
+      <div
+        onClick={() => setFilter(category)}
+        style={{ cursor: "pointer" }}
+        key={Math.random() * 60000}
+      >
         <HandleBadges category={category} />
       </div>
     );

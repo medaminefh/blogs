@@ -17,7 +17,8 @@ import {
   Redirect,
 } from "react-router-dom";
 
-const ProtectedRoute = ({ component: Component, token, path, ...rest }) => {
+const ProtectedRoute = ({ component: Component, path, ...rest }) => {
+  const token = localStorage.token;
   return (
     <Route
       {...rest}
@@ -35,24 +36,13 @@ const ProtectedRoute = ({ component: Component, token, path, ...rest }) => {
 };
 
 const Routing = () => {
-  const token = localStorage.token;
   return (
     <div className="container">
       <Switch>
-        <ProtectedRoute exact token={token} path="/login" component={Login} />
-        <ProtectedRoute
-          exact
-          token={token}
-          path="/blog/create"
-          component={Markdown}
-        />
+        <ProtectedRoute exact path="/login" component={Login} />
+        <ProtectedRoute exact path="/blog/create" component={Markdown} />
         <Route exact path="/blog/:id" component={Blog} />
-        <ProtectedRoute
-          exact
-          token={token}
-          path="/blog/:id/edit"
-          component={Markdown}
-        />
+        <ProtectedRoute exact path="/blog/:id/edit" component={Markdown} />
         <Route exact path="*" component={LandingPage} />
       </Switch>
     </div>
@@ -60,19 +50,44 @@ const Routing = () => {
 };
 
 const LandingPage = () => {
+  const [filter, setFilter] = useState("");
   const ServerURL =
     process.env.NODE_ENV === "development"
       ? "http://localhost:5000/api"
       : process.env.REACT_APP_SERVER_URL;
   const [Blogs, setBlogs] = useState([]);
+  const [filteredBlogs, setfilteredBlogs] = useState(Blogs);
   const [visible, setVisibility] = useState(true);
   const handleClick = () => setVisibility(false);
+  const HandleFilter = () => {
+    setfilteredBlogs(Blogs.filter((blog) => blog.categories.includes(filter)));
+  };
+
+  useEffect(() => {
+    if (filter) HandleFilter();
+  }, [filter]);
 
   const showBlogs = !Blogs.length
     ? "Nothing"
-    : Blogs.map((blog) => {
+    : !filter
+    ? Blogs.map((blog) => {
         return (
           <Card
+            setFilter={setFilter}
+            key={blog._id}
+            categories={blog.categories}
+            id={blog._id}
+            createdAt={blog.createdAt}
+            short={blog.short}
+            title={blog.title}
+            long={blog.long}
+          />
+        );
+      })
+    : filteredBlogs.map((blog) => {
+        return (
+          <Card
+            setFilter={setFilter}
             key={blog._id}
             categories={blog.categories}
             id={blog._id}
@@ -96,6 +111,14 @@ const LandingPage = () => {
     <>
       {visible && <Alert handleClick={handleClick} />}
       <AnimeApi />
+      {filter && (
+        <button
+          type="button"
+          class="btn-close"
+          title="Clear filter"
+          onClick={() => setFilter("")}
+        ></button>
+      )}
       <SmoothList delay={100} className="posts mb-5">
         {showBlogs}
       </SmoothList>

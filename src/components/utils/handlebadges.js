@@ -5,6 +5,7 @@ const HandleBadges = ({ category = "" }) => {
     css: "badge bg-primary text-light",
     javascript: "badge bg-JsYellow text-dark",
     github: "badge bg-dark text-light",
+    react: "badge bg-dark text-light",
     python: "badge bg-lightBlue text-dark",
     python3: "badge bg-darkBlue text-light",
     programming: "badge bg-pistach text-dark",
@@ -17,7 +18,8 @@ const HandleBadges = ({ category = "" }) => {
         classes[category] ? classes[category] : "badge bg-dark text-light"
       }
     >
-      #{category}
+      <span className="text-secondary">#</span>
+      {category}
     </span>
   );
 };
