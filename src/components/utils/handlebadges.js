@@ -5,7 +5,7 @@ const HandleBadges = ({ category = "" }) => {
     css: "badge bg-primary text-light",
     javascript: "badge bg-JsYellow text-dark",
     github: "badge bg-dark text-light",
-    react: "badge bg-dark text-light",
+    reactjs: "badge bg-ReactBlue text-dark",
     python: "badge bg-lightBlue text-dark",
     python3: "badge bg-darkBlue text-light",
     programming: "badge bg-pistach text-dark",
