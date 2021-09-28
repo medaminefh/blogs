@@ -11,6 +11,11 @@ import { showSuccessMsg } from "../utils/notification";
 const Markdown = ({ location }) => {
   const [err, setErr] = useState("");
   const [success, setSuccess] = useState("");
+  const [checked, setChecked] = useState(true);
+
+  const handleChange = () => {
+    setChecked(!checked);
+  };
 
   let history = useHistory();
   const token = localStorage.token;
@@ -64,7 +69,13 @@ const Markdown = ({ location }) => {
       fetch(`${SERVER_URL}/blogs/${id}`, {
         method: "PATCH",
         headers: { "content-type": "application/json", authorization: token },
-        body: JSON.stringify({ title, short, long: markdown, categories }),
+        body: JSON.stringify({
+          title,
+          short,
+          long: markdown,
+          categories,
+          private: checked,
+        }),
       })
         .then((res) => res.json())
         .then((data) => {
@@ -72,7 +83,7 @@ const Markdown = ({ location }) => {
           console.log(data);
           setErr("");
           setSuccess(data.msg);
-          /* history.push("/"); */
+          history.push(`/blog/${id}`);
         })
         .catch((err) => {
           setSuccess("");
@@ -85,7 +96,13 @@ const Markdown = ({ location }) => {
     fetch(`${SERVER_URL}/blogs`, {
       method: "POST",
       headers: { "content-type": "application/json", authorization: token },
-      body: JSON.stringify({ title, short, long: markdown, categories }),
+      body: JSON.stringify({
+        title,
+        short,
+        long: markdown,
+        categories,
+        private: checked,
+      }),
     })
       .then((res) => res.json())
       .then((data) => {
@@ -93,7 +110,7 @@ const Markdown = ({ location }) => {
         console.log(data);
         setErr("");
         setSuccess(data.msg);
-        /* history.push("/"); */
+        history.push("/");
       })
       .catch((err) => {
         setSuccess("");
@@ -136,8 +153,16 @@ const Markdown = ({ location }) => {
               tags={categories || []}
               onChange={(newTags) => {
                 setCategories(newTags);
-                //console.log(categories);
               }}
+            />
+          </div>
+          <div className="form-check form-switch">
+            <label className="form-check-label">Private</label>
+            <input
+              checked={checked}
+              onChange={handleChange}
+              className="form-check-input"
+              type="checkbox"
             />
           </div>
           <SimpleMDE value={markdown} onChange={markdownChange} />
@@ -183,8 +208,16 @@ const Markdown = ({ location }) => {
               tags={categories || []}
               onChange={(newTags) => {
                 setCategories(newTags);
-                //console.log(categories);
               }}
+            />
+          </div>
+          <div className="form-check form-switch">
+            <label className="form-check-label">Private</label>
+            <input
+              checked={checked}
+              onChange={handleChange}
+              className="form-check-input"
+              type="checkbox"
             />
           </div>
           <SimpleMDE value={markdown} onChange={markdownChange} />

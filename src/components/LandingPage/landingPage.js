@@ -60,7 +60,7 @@ const LandingPage = () => {
       });
 
   useEffect(() => {
-    fetch(ServerURL + "/blogs")
+    fetch(ServerURL + "/blogs", { headers: { authorization: token } })
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);
