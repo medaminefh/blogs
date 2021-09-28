@@ -5,8 +5,13 @@ import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { Link, useParams, useHistory } from "react-router-dom";
 import Loading from "../utils/loading";
+import { showErrMsg } from "../utils/notification";
+import { showSuccessMsg } from "../utils/notification";
 
 const Markdown = ({ location }) => {
+  const [err, setErr] = useState("");
+  const [success, setSuccess] = useState("");
+
   let history = useHistory();
   const token = localStorage.token;
   const SERVER_URL =
@@ -65,12 +70,18 @@ const Markdown = ({ location }) => {
         .then((data) => {
           // show some Notification in the ui
           console.log(data);
-          history.push("/");
+          setErr("");
+          setSuccess(data.msg);
+          /* history.push("/"); */
         })
-        .catch((err) => console.log(err));
+        .catch((err) => {
+          setSuccess("");
+          setErr(err);
+          console.log(err);
+        });
       return;
     }
-    console.log(title, short, markdown, categories);
+
     fetch(`${SERVER_URL}/blogs`, {
       method: "POST",
       headers: { "content-type": "application/json", authorization: token },
@@ -80,14 +91,22 @@ const Markdown = ({ location }) => {
       .then((data) => {
         // show some Notification in the ui
         console.log(data);
-        history.push("/");
+        setErr("");
+        setSuccess(data.msg);
+        /* history.push("/"); */
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        setSuccess("");
+        setErr(err);
+        console.log(err);
+      });
   };
 
   if (id) {
     return blog ? (
       <>
+        {err && showErrMsg(err)}
+        {success && showSuccessMsg(success)}
         <Link to={`/blog/${id}`} className="btn btn-back">
           Go Back
         </Link>
@@ -133,6 +152,8 @@ const Markdown = ({ location }) => {
   } else {
     return (
       <>
+        {err && showErrMsg(err)}
+        {success && showSuccessMsg(success)}
         <Link to="/" className="btn btn-back">
           Go Back
         </Link>

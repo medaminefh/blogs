@@ -182,3 +182,18 @@ ul.social__media li a {
   font-size: 30px;
   text-align: center;
 }
+.errMsg {
+  background: rgba(214, 10, 10, 0.712);
+  color: #fff9;
+  text-align: center;
+  padding: 10px 0;
+  letter-spacing: 1.3px;
+}
+
+.successMsg {
+  background: rgba(9, 158, 54, 0.664);
+  color: #fff9;
+  text-align: center;
+  padding: 10px 0;
+  letter-spacing: 1.3px;
+}
