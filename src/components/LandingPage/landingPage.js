@@ -33,6 +33,7 @@ const LandingPage = () => {
           <Card
             setFilter={setFilter}
             key={blog._id}
+            nonPublic={blog.private === "true"}
             categories={blog.categories}
             id={blog._id}
             createdAt={blog.createdAt}
@@ -48,6 +49,7 @@ const LandingPage = () => {
           <Card
             setFilter={setFilter}
             key={blog._id}
+            nonPublic={blog.private === "true"}
             categories={blog.categories}
             id={blog._id}
             createdAt={blog.createdAt}
@@ -69,8 +71,8 @@ const LandingPage = () => {
 
   return Blogs.length ? (
     <>
-      {visible && <Alert handleClick={handleClick} />}
-      <AnimeApi />
+      {/* {visible && <Alert handleClick={handleClick} />}
+      <AnimeApi /> */}
       <div className="container d-flex w-100 justify-content-between align-items-center">
         {token && (
           <Link to={"/blog/create"} className="btn btn-primary">

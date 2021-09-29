@@ -197,3 +197,33 @@ ul.social__media li a {
   padding: 10px 0;
   letter-spacing: 1.3px;
 }
+
+.card.private {
+  position: relative;
+}
+
+.card.private::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  right: 1em;
+  width: 1.5em;
+  height: 2em;
+  z-index: -1;
+  background-color: rgba(255, 99, 71, 0.712);
+}
+
+.card.public {
+  position: relative;
+}
+
+.card.public::before {
+  content: "";
+  position: absolute;
+  top: -1em;
+  right: 1em;
+  width: 1.5em;
+  height: 2em;
+  z-index: -1;
+  background-color: rgba(26, 200, 41, 0.767);
+}

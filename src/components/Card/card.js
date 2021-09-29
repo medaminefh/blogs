@@ -5,6 +5,7 @@ export default function Card({
   id,
   categories,
   createdAt,
+  nonPublic,
   updatedAt,
   short,
   long,
@@ -12,17 +13,6 @@ export default function Card({
   setFilter,
 }) {
   const token = localStorage.token;
-  /* const dateobj = createdAt ? new Date(createdAt) : new Date();
-  function pad(n) {
-    return n < 10 ? "0" + n : n;
-  }
-  // format the date
-  createdAt =
-    pad(dateobj.getDate()) +
-    "/" +
-    pad(dateobj.getMonth() + 1) +
-    "/" +
-    dateobj.getFullYear(); */
 
   const badges = categories.map((category) => {
     return (
@@ -37,7 +27,15 @@ export default function Card({
   });
 
   return (
-    <div className="card">
+    <div
+      className={
+        token && nonPublic
+          ? "card private "
+          : token && !nonPublic
+          ? "card public"
+          : "card"
+      }
+    >
       <img src="" alt="" />
 
       <div className="post-date">
@@ -58,6 +56,7 @@ export default function Card({
             title,
             short,
             long,
+            nonPublic,
             createdAt,
             updatedAt,
             categories,

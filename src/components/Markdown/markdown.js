@@ -41,6 +41,7 @@ const Markdown = ({ location }) => {
           setShort(data.short);
           setCategories(data.categories);
           setMarkdown(data.long);
+          setChecked(!checked);
         });
     } else if (state && id) {
       setBlog(state);
@@ -48,6 +49,7 @@ const Markdown = ({ location }) => {
       setShort(state.short);
       setCategories(state.categories);
       setMarkdown(state.long);
+      setChecked(state.nonPublic);
     }
   }, []);
   const markdownChange = (newValue) => {
@@ -107,7 +109,12 @@ const Markdown = ({ location }) => {
       .then((res) => res.json())
       .then((data) => {
         // show some Notification in the ui
-        console.log(data);
+
+        if (data.err) {
+          setSuccess("");
+          setErr(data.err);
+          return;
+        }
         setErr("");
         setSuccess(data.msg);
         history.push("/");
@@ -115,7 +122,6 @@ const Markdown = ({ location }) => {
       .catch((err) => {
         setSuccess("");
         setErr(err);
-        console.log(err);
       });
   };
 

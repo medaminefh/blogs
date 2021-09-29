@@ -27,12 +27,10 @@ const Login = () => {
           }
           setSuccess("");
           setErr(data.msg);
-          console.log("Not Authorized");
         });
     } catch (err) {
       setSuccess("");
       setErr("Not Authorized");
-      console.log(err);
     }
   };
 

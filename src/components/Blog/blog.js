@@ -8,7 +8,8 @@ const Blog = ({ match, location }) => {
   const { id } = match.params;
   const { state, pathname } = location;
   const [blog, setBlog] = useState(state || "");
-  const { title, short, long, createdAt, updatedAt, categories } = blog;
+  const { title, short, long, createdAt, updatedAt, categories, nonPublic } =
+    blog;
   const token = localStorage.token;
 
   useEffect(() => {
@@ -34,7 +35,15 @@ const Blog = ({ match, location }) => {
           <Link
             to={{
               pathname: `${pathname}/edit`,
-              state: { title, short, long, createdAt, updatedAt, categories },
+              state: {
+                title,
+                short,
+                long,
+                createdAt,
+                updatedAt,
+                categories,
+                nonPublic,
+              },
             }}
             className="btn btn-back"
           >
