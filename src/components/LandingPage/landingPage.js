@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import Card from "../Card/card";
 import Alert from "../Alert/alert";
 import LoadingPage from "../utils/loading";
+import handleDate from "../utils/handleDate";
 import AnimeApi from "../utils/animeApi";
 import SmoothList from "react-smooth-list";
 import { Link } from "react-router-dom";
@@ -29,6 +30,7 @@ const LandingPage = () => {
     ? "Nothing"
     : !filter
     ? Blogs.map((blog) => {
+        const createdOrUpdated = handleDate(blog.createdAt, blog.updatedAt);
         return (
           <Card
             setFilter={setFilter}
@@ -36,8 +38,7 @@ const LandingPage = () => {
             nonPublic={blog.private === "true"}
             categories={blog.categories}
             id={blog._id}
-            createdAt={blog.createdAt}
-            updatedAt={blog.updatedAt}
+            createdOrUpdated={createdOrUpdated}
             short={blog.short}
             title={blog.title}
             long={blog.long}

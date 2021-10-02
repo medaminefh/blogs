@@ -4,9 +4,8 @@ import HandleBadges from "../utils/handlebadges";
 export default function Card({
   id,
   categories,
-  createdAt,
   nonPublic,
-  updatedAt,
+  createdOrUpdated,
   short,
   long,
   title,
@@ -38,9 +37,7 @@ export default function Card({
     >
       <img src="" alt="" />
 
-      <div className="post-date">
-        Posted on {updatedAt === createdAt ? createdAt : updatedAt}
-      </div>
+      <div className="post-date">{createdOrUpdated}</div>
 
       <h3>{title}</h3>
 
@@ -57,8 +54,7 @@ export default function Card({
             short,
             long,
             nonPublic,
-            createdAt,
-            updatedAt,
+            createdOrUpdated,
             categories,
             token,
           },
