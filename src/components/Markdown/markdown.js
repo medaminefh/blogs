@@ -66,6 +66,8 @@ const Markdown = ({ location }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setErr("");
+    setSuccess("");
     // if there is an Id then this is the edit form
     if (id) {
       fetch(`${SERVER_URL}/blogs/${id}`, {

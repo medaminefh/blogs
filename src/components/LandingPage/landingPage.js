@@ -89,7 +89,7 @@ const LandingPage = () => {
           ></button>
         )}
       </div>
-      <SmoothList delay={100} className="posts mb-5">
+      <SmoothList delay={130} className="posts mb-5">
         {showBlogs}
       </SmoothList>
     </>
