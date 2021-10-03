@@ -132,7 +132,20 @@ const Markdown = ({ location }) => {
       <>
         {err && showErrMsg(err)}
         {success && showSuccessMsg(success)}
-        <Link to={`/blog/${id}`} className="btn btn-back">
+        <Link
+          to={{
+            pathname: `/blog/${id}`,
+            state: {
+              title,
+              short,
+              long,
+              createdOrUpdated,
+              categories,
+              nonPublic,
+            },
+          }}
+          className="btn btn-back"
+        >
           Go Back
         </Link>
         <form onSubmit={handleSubmit} className="mb-5">
