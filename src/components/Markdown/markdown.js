@@ -138,10 +138,12 @@ const Markdown = ({ location }) => {
             state: {
               title,
               short,
-              long,
-              createdOrUpdated,
+              long: markdown,
+              createdOrUpdated: blog.createdOrUpdated ?? "",
+              createdAt: blog.createdAt,
+              updatedAt: blog.updatedAt,
               categories,
-              nonPublic,
+              nonPublic: blog.private,
             },
           }}
           className="btn btn-back"
