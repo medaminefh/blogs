@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 
 const LandingPage = () => {
   const token = localStorage.token;
+  const [ErrorFetching, setError] = useState("");
   const [filter, setFilter] = useState("");
   const ServerURL =
     process.env.NODE_ENV === "development"
@@ -46,6 +47,7 @@ const LandingPage = () => {
         );
       })
     : filteredBlogs.map((blog) => {
+        const createdOrUpdated = handleDate(blog.createdAt, blog.updatedAt);
         return (
           <Card
             setFilter={setFilter}
@@ -53,8 +55,7 @@ const LandingPage = () => {
             nonPublic={blog.private === "true"}
             categories={blog.categories}
             id={blog._id}
-            createdAt={blog.createdAt}
-            updatedAt={blog.updatedAt}
+            createdOrUpdated={createdOrUpdated}
             short={blog.short}
             title={blog.title}
             long={blog.long}
@@ -67,6 +68,11 @@ const LandingPage = () => {
       .then((res) => res.json())
       .then((data) => {
         setBlogs(data);
+      })
+      .catch((err) => {
+        console.log(err);
+        setError(true);
+        return;
       });
   }, []);
 
@@ -93,6 +99,8 @@ const LandingPage = () => {
         {showBlogs}
       </SmoothList>
     </>
+  ) : ErrorFetching ? (
+    <h2>There is something wrong, Please do Refresh or come later</h2>
   ) : (
     <LoadingPage />
   );
