@@ -67,7 +67,7 @@ const Markdown = ({ location }) => {
   const handleTags = (e) => {
     const { value } = e.target;
     const lastChar = value[value.length - 1];
-    setTag(value);
+    setTag(value.toLowerCase());
     if (value === "," || value === " ") {
       setTag("");
       return;
@@ -77,6 +77,7 @@ const Markdown = ({ location }) => {
         if (prev.includes(tag)) return prev;
         return [...prev, tag];
       });
+      setCategories((prev) => [...new Set(prev)]);
       setCategories((prev) => prev.filter((a) => a !== " "));
       setTag("");
     }

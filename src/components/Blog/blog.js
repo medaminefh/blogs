@@ -104,8 +104,8 @@ const Blog = ({ match, location }) => {
         )}
       </div>
       <div className="card card-page">
-        <h1 className="post-title">{blog.title}</h1>
         <div className="post-date">{createdOrUpdated}</div>
+        <h1 className="post-title">{blog.title}</h1>
         <img src={""} alt="" />
         <div className="post-body">
           <div
