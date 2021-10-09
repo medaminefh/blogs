@@ -120,7 +120,11 @@ const Markdown = ({ location }) => {
         .then((res) => res.json())
         .then((data) => {
           // show some Notification in the ui
-          console.log(data);
+          if (data.err) {
+            setSuccess("");
+            setErr(data.err);
+            return;
+          }
           setErr("");
           setSuccess(data.msg);
           history.push(`/blog/${id}`);
