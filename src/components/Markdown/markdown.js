@@ -1,19 +1,19 @@
 import { useState, useEffect } from "react";
-import ReactTagInput from "@pathofdev/react-tag-input";
-import "@pathofdev/react-tag-input/build/index.css";
 import SimpleMDE from "react-simplemde-editor";
 import "easymde/dist/easymde.min.css";
 import { Link, useParams, useHistory } from "react-router-dom";
 import Loading from "../utils/loading";
 import { showErrMsg } from "../utils/notification";
 import { showSuccessMsg } from "../utils/notification";
+import HandleBadges from "../utils/handlebadges";
 
 const Markdown = ({ location }) => {
   const [err, setErr] = useState("");
   const [success, setSuccess] = useState("");
   const [checked, setChecked] = useState(true);
+  const [tag, setTag] = useState([]);
 
-  const handleChange = () => {
+  const handleChecked = () => {
     setChecked(!checked);
   };
 
@@ -64,10 +64,45 @@ const Markdown = ({ location }) => {
     setShort(e.target.value);
   };
 
+  const handleTags = (e) => {
+    const { value } = e.target;
+    const lastChar = value[value.length - 1];
+    setTag(value);
+    if (value === "," || value === " ") {
+      setTag("");
+      return;
+    }
+    if (lastChar === "," || lastChar === " ") {
+      setCategories((prev) => {
+        if (prev.includes(tag)) return prev;
+        return [...prev, tag];
+      });
+      setCategories((prev) => prev.filter((a) => a !== " "));
+      setTag("");
+    }
+  };
+
+  const showCategories =
+    categories &&
+    categories.map((category) => (
+      <div
+        onClick={() =>
+          setCategories((prev) => prev.filter((cat) => cat !== category))
+        }
+        style={{ cursor: "pointer" }}
+        key={Math.random() * 60000}
+      >
+        <HandleBadges category={category} />
+      </div>
+    ));
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setErr("");
     setSuccess("");
+    if (!title || !short || !markdown || !categories || !categories.length) {
+      setErr("Fill All the fields");
+    }
     // if there is an Id then this is the edit form
     if (id) {
       fetch(`${SERVER_URL}/blogs/${id}`, {
@@ -143,7 +178,7 @@ const Markdown = ({ location }) => {
               createdAt: blog.createdAt,
               updatedAt: blog.updatedAt,
               categories,
-              nonPublic: blog.private,
+              nonPublic: blog.private === "true",
             },
           }}
           className="btn btn-back"
@@ -169,21 +204,16 @@ const Markdown = ({ location }) => {
               className="form-control"
             />
           </div>
+          <div className="d-flex flex-wrap mt-2 mb-2">{showCategories}</div>
           <div className="mb-3">
             <label className="form-label">Categories</label>
-            <ReactTagInput
-              delimiters={[13, 32, 186, 188]}
-              tags={categories || []}
-              onChange={(newTags) => {
-                setCategories(newTags);
-              }}
-            />
+            <input value={tag} onChange={handleTags} />
           </div>
           <div className="form-check form-switch">
             <label className="form-check-label">Private</label>
             <input
               checked={checked}
-              onChange={handleChange}
+              onChange={handleChecked}
               className="form-check-input"
               type="checkbox"
             />
@@ -224,21 +254,16 @@ const Markdown = ({ location }) => {
               className="form-control"
             />
           </div>
+          <div className="d-flex flex-wrap mt-2 mb-2">{showCategories}</div>
           <div className="mb-3">
             <label className="form-label">Categories</label>
-            <ReactTagInput
-              delimiters={[13, 32, 186, 188]}
-              tags={categories || []}
-              onChange={(newTags) => {
-                setCategories(newTags);
-              }}
-            />
+            <input value={tag} onChange={handleTags} />
           </div>
           <div className="form-check form-switch">
             <label className="form-check-label">Private</label>
             <input
               checked={checked}
-              onChange={handleChange}
+              onChange={handleChecked}
               className="form-check-input"
               type="checkbox"
             />
