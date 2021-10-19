@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Loading from "../utils/loading";
 import marked from "marked";
 import handleDate from "../utils/handleDate";
@@ -9,6 +9,7 @@ import { showSuccessMsg } from "../utils/notification";
 const Blog = ({ match, location }) => {
   const [err, setErr] = useState("");
   const [success, setSuccess] = useState("");
+  let history = useHistory();
 
   const SERVER_URL =
     process.env.NODE_ENV === "development"
@@ -43,23 +44,29 @@ const Blog = ({ match, location }) => {
   }, []);
 
   const handleRemove = (e) => {
-    return;
-    fetch(`${SERVER_URL}/blogs/${id}`, {
-      method: "DELETE",
-      headers: { "content-type": "application/json", authorization: token },
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        // show some Notification in the ui
-        console.log(data);
-        setErr("");
-        setSuccess(data.msg);
+    const confirmation = window.confirm(
+      "Are You Sure You want To Delete This?"
+    );
+    if (confirmation) {
+      fetch(`${SERVER_URL}/blogs/${id}`, {
+        method: "DELETE",
+        headers: { "content-type": "application/json", authorization: token },
       })
-      .catch((err) => {
-        setSuccess("");
-        setErr(err);
-        console.log(err);
-      });
+        .then((res) => res.json())
+        .then((data) => {
+          // show some Notification in the ui
+          console.log(data);
+          setErr("");
+          setSuccess(data.msg);
+        })
+        .catch((err) => {
+          setSuccess("");
+          setErr(err);
+          console.log(err);
+        });
+      history.push("/");
+      return;
+    }
     return;
   };
 
