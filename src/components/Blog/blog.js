@@ -58,13 +58,13 @@ const Blog = ({ match, location }) => {
           console.log(data);
           setErr("");
           setSuccess(data.msg);
+          history.push("/");
         })
         .catch((err) => {
           setSuccess("");
           setErr(err);
           console.log(err);
         });
-      history.push("/");
       return;
     }
     return;
