@@ -3,13 +3,10 @@ const LoadingPage = () => (
     className="d-flex justify-content-center align-items-center"
     style={{ minHeight: "70vh" }}
   >
-    <div
-      className="spinner-border"
+    <img
+      src="https://github.githubassets.com/images/mona-loading-dark.gif"
       style={{ width: "5rem", height: "5rem" }}
-      role="status"
-    >
-      <span className="visually-hidden">Loading...</span>
-    </div>
+    />
   </div>
 );
 
