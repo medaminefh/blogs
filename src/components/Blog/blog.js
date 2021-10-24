@@ -32,13 +32,24 @@ const Blog = ({ match, location }) => {
   createdOrUpdated = createdOrUpdated ?? handleDate(createdAt, updatedAt);
   useEffect(() => {
     if (!state) {
-      fetch(`${SERVER_URL}/blogs/${id}`)
+      fetch(`${SERVER_URL}/blogs/${id}`, {
+        method: "GET",
+        headers: { "content-type": "application/json", authorization: token },
+      })
         .then((res) => res.json())
         .then((data) => {
+          if (data.err) {
+            history.push("/");
+            return;
+          }
           setBlog(data);
           if (token) {
             setBlog((prev) => ({ ...prev, token }));
           }
+        })
+        .catch((err) => {
+          console.log(err);
+          history.push("/");
         });
     }
   }, []);
