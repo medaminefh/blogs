@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
 import Card from "../Card/card";
-import Alert from "../Alert/alert";
 import LoadingPage from "../utils/loading";
 import handleDate from "../utils/handleDate";
-import AnimeApi from "../utils/animeApi";
 import SmoothList from "react-smooth-list";
 import { Link } from "react-router-dom";
 
@@ -17,8 +15,7 @@ const LandingPage = () => {
       : process.env.REACT_APP_SERVER_URL;
   const [Blogs, setBlogs] = useState([]);
   const [filteredBlogs, setfilteredBlogs] = useState(Blogs);
-  const [visible, setVisibility] = useState(true);
-  const handleClick = () => setVisibility(false);
+
   const HandleFilter = () => {
     setfilteredBlogs(Blogs.filter((blog) => blog.categories.includes(filter)));
   };
@@ -78,8 +75,6 @@ const LandingPage = () => {
 
   return Blogs.length ? (
     <>
-      {/* {visible && <Alert handleClick={handleClick} />}
-      <AnimeApi /> */}
       <div className="container d-flex w-100 justify-content-between align-items-center">
         {token && (
           <Link to={"/blog/create"} className="btn btn-primary">

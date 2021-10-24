@@ -1,5 +1,6 @@
-@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Lato&family=Merriweather:wght@300;400;500&display=swap");
 @import url("https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css");
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400&display=swap");
 
 * {
   box-sizing: border-box;
@@ -8,7 +9,8 @@
 }
 
 body {
-  font-family: "Poppins", sans-serif;
+  font-family: "Lato", sans-serif;
+  color: #333333;
 }
 
 p {
@@ -78,7 +80,7 @@ footer {
 
 .btn-back {
   background: #f4f4f4;
-  color: #000;
+  color: #333333;
   margin-bottom: 20px;
 }
 
@@ -104,9 +106,9 @@ footer {
 }
 
 .post-date {
-  background: #f4f4f4;
+  color: #383838c5;
+  font-family: "Merriweather", sans-serif;
   margin-bottom: 20px;
-  padding: 3px 10px;
 }
 
 .post-body ul,
