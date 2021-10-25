@@ -3,6 +3,7 @@ import HandleBadges from "../utils/handlebadges";
 
 export default function Card({
   id,
+  img_url,
   categories,
   nonPublic,
   createdOrUpdated,
@@ -35,13 +36,14 @@ export default function Card({
           : "card"
       }
     >
-      <img src="" alt="" />
-
       <div className="post-date">{createdOrUpdated}</div>
 
       <h3>{title}</h3>
 
       <p>{short}</p>
+
+      {img_url && <img src={img_url} alt={title} />}
+
       <div className="d-flex flex-wrap justify-content-around mt-2 mb-2">
         {badges}
       </div>
@@ -51,6 +53,7 @@ export default function Card({
           pathname: `/blog/${id}`,
           state: {
             title,
+            img_url,
             short,
             long,
             nonPublic,

@@ -33,6 +33,7 @@ const LandingPage = () => {
           <Card
             setFilter={setFilter}
             key={blog._id}
+            img_url={blog.img_url}
             nonPublic={blog.private === "true"}
             categories={blog.categories}
             id={blog._id}
@@ -49,6 +50,7 @@ const LandingPage = () => {
           <Card
             setFilter={setFilter}
             key={blog._id}
+            img_url={blog.img_url}
             nonPublic={blog.private === "true"}
             categories={blog.categories}
             id={blog._id}

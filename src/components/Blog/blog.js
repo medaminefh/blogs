@@ -20,6 +20,7 @@ const Blog = ({ match, location }) => {
   const [blog, setBlog] = useState(state || "");
   let {
     title,
+    img_url,
     short,
     long,
     createdAt,
@@ -54,7 +55,7 @@ const Blog = ({ match, location }) => {
     }
   }, []);
 
-  const handleRemove = (e) => {
+  const handleRemove = () => {
     const confirmation = window.confirm(
       "Are You Sure You want To Delete This?"
     );
@@ -107,6 +108,7 @@ const Blog = ({ match, location }) => {
                 pathname: `${pathname}/edit`,
                 state: {
                   title,
+                  img_url,
                   short,
                   long,
                   createdOrUpdated,
@@ -123,7 +125,6 @@ const Blog = ({ match, location }) => {
       </div>
       <div className="card card-page">
         <div className="post-date">{createdOrUpdated}</div>
-        <img src={""} alt="" />
         <div className="post-body">
           <div
             dangerouslySetInnerHTML={{

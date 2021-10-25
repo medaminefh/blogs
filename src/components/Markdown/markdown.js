@@ -24,12 +24,13 @@ const Markdown = ({ location }) => {
       ? "http://localhost:5000/api"
       : process.env.REACT_APP_SERVER_URL;
   const [title, setTitle] = useState("");
+  const [img, setImg] = useState("");
   const [short, setShort] = useState("");
   const [categories, setCategories] = useState("");
   const { state } = location;
   const [blog, setBlog] = useState(state);
   const { id } = useParams();
-  const [markdown, setMarkdown] = useState("# Type Something cool😎");
+  const [markdown, setMarkdown] = useState("## Type Something cool😎");
 
   useEffect(() => {
     if (!state && id) {
@@ -37,14 +38,16 @@ const Markdown = ({ location }) => {
         .then((res) => res.json())
         .then((data) => {
           setBlog(data);
+          setImg(data.img_url);
           setTitle(data.title);
           setShort(data.short);
           setCategories(data.categories);
           setMarkdown(data.long);
-          setChecked(!checked);
+          setChecked(data.private === true);
         });
     } else if (state && id) {
       setBlog(state);
+      setImg(state.img_url);
       setTitle(state.title);
       setShort(state.short);
       setCategories(state.categories);
@@ -58,6 +61,10 @@ const Markdown = ({ location }) => {
 
   const titleChange = (e) => {
     setTitle(e.target.value);
+  };
+
+  const imgChange = (e) => {
+    setImg(e.target.value);
   };
 
   const shortChange = (e) => {
@@ -111,6 +118,7 @@ const Markdown = ({ location }) => {
         headers: { "content-type": "application/json", authorization: token },
         body: JSON.stringify({
           title,
+          img_url: img,
           short,
           long: markdown,
           categories,
@@ -142,6 +150,7 @@ const Markdown = ({ location }) => {
       headers: { "content-type": "application/json", authorization: token },
       body: JSON.stringify({
         title,
+        img,
         short,
         long: markdown,
         categories,
@@ -177,6 +186,7 @@ const Markdown = ({ location }) => {
             pathname: `/blog/${id}`,
             state: {
               title,
+              img_url: img,
               short,
               long: markdown,
               createdOrUpdated: blog.createdOrUpdated ?? "",
@@ -205,6 +215,15 @@ const Markdown = ({ location }) => {
             <input
               value={short}
               onChange={shortChange}
+              type="text"
+              className="form-control"
+            />
+          </div>
+          <div className="mb-3">
+            <label className="form-label">Img Url</label>
+            <input
+              value={img}
+              onChange={imgChange}
               type="text"
               className="form-control"
             />

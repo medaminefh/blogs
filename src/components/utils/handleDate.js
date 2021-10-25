@@ -2,25 +2,14 @@ const handleDate = (CreatedAt, UpdatedAt) => {
   const isUpdated = new Date(CreatedAt) < new Date(UpdatedAt);
   const createdAtDateObj = new Date(CreatedAt);
   const updatedAtDateObj = new Date(UpdatedAt);
-  function pad(n) {
-    return n < 10 ? "0" + n : n;
-  }
+  const options = { year: "numeric", month: "short", day: "numeric" };
+
   if (isUpdated) {
-    const updatedAt =
-      pad(updatedAtDateObj.getDate()) +
-      "/" +
-      pad(updatedAtDateObj.getMonth() + 1) +
-      "/" +
-      updatedAtDateObj.getFullYear();
+    const updatedAt = updatedAtDateObj.toLocaleDateString("en-US", options);
 
     return `Updated on ${updatedAt}`;
   } else {
-    const createdAt =
-      pad(createdAtDateObj.getDate()) +
-      "/" +
-      pad(createdAtDateObj.getMonth() + 1) +
-      "/" +
-      createdAtDateObj.getFullYear();
+    const createdAt = createdAtDateObj.toLocaleDateString("en-US", options);
 
     return `Created on ${createdAt}`;
   }
