@@ -278,6 +278,15 @@ const Markdown = ({ location }) => {
               className="form-control"
             />
           </div>
+          <div className="mb-3">
+            <label className="form-label">Img Url</label>
+            <input
+              value={img}
+              onChange={imgChange}
+              type="text"
+              className="form-control"
+            />
+          </div>
           <div className="d-flex flex-wrap mt-2 mb-2">{showCategories}</div>
           <div className="mb-3">
             <label className="form-label">Categories</label>
