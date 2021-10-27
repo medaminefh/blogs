@@ -150,7 +150,7 @@ const Markdown = ({ location }) => {
       headers: { "content-type": "application/json", authorization: token },
       body: JSON.stringify({
         title,
-        img,
+        img_url: img,
         short,
         long: markdown,
         categories,
