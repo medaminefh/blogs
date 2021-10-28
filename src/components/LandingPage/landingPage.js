@@ -66,7 +66,7 @@ const LandingPage = () => {
     fetch(ServerURL + "/blogs", { headers: { authorization: token } })
       .then((res) => res.json())
       .then((data) => {
-        setBlogs(data);
+        setBlogs((prev) => [...prev, ...data]);
       })
       .catch((err) => {
         console.log(err);
