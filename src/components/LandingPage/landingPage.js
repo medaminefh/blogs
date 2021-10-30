@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Card from "../Card/card";
 import LoadingPage from "../utils/loading";
-import handleDate from "../utils/handleDate";
+import HandleDate from "../utils/handleDate";
 import SmoothList from "react-smooth-list";
 import { Link } from "react-router-dom";
 
@@ -28,7 +28,7 @@ const LandingPage = () => {
     ? "Nothing"
     : !filter
     ? Blogs.map((blog) => {
-        const createdOrUpdated = handleDate(blog.createdAt, blog.updatedAt);
+        const createdOrUpdated = <HandleDate updated={blog.updatedAt} />;
         return (
           <Card
             setFilter={setFilter}
@@ -45,7 +45,7 @@ const LandingPage = () => {
         );
       })
     : filteredBlogs.map((blog) => {
-        const createdOrUpdated = handleDate(blog.createdAt, blog.updatedAt);
+        const createdOrUpdated = <HandleDate updated={blog.updatedAt} />;
         return (
           <Card
             setFilter={setFilter}

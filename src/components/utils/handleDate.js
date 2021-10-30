@@ -1,18 +1,14 @@
-const handleDate = (CreatedAt, UpdatedAt) => {
-  const isUpdated = new Date(CreatedAt) < new Date(UpdatedAt);
-  const createdAtDateObj = new Date(CreatedAt);
+const HandleDate = ({ updated: UpdatedAt }) => {
   const updatedAtDateObj = new Date(UpdatedAt);
   const options = { year: "numeric", month: "short", day: "numeric" };
+  const updatedAt = updatedAtDateObj.toLocaleDateString("en-US", options);
 
-  if (isUpdated) {
-    const updatedAt = updatedAtDateObj.toLocaleDateString("en-US", options);
-
-    return `Updated on ${updatedAt}`;
-  } else {
-    const createdAt = createdAtDateObj.toLocaleDateString("en-US", options);
-
-    return `Created on ${createdAt}`;
-  }
+  return (
+    <>
+      <i className="far fa-clock me-2"></i>
+      {updatedAt}
+    </>
+  );
 };
 
-export default handleDate;
+export default HandleDate;

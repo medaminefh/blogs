@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Loading from "../utils/loading";
 import marked from "marked";
-import handleDate from "../utils/handleDate";
+import HandleDate from "../utils/handleDate";
 import { showErrMsg } from "../utils/notification";
 import { showSuccessMsg } from "../utils/notification";
 
@@ -23,14 +23,15 @@ const Blog = ({ match, location }) => {
     img_url,
     short,
     long,
-    createdAt,
     updatedAt,
     createdOrUpdated,
     categories,
     nonPublic,
   } = blog;
   const token = localStorage.token;
-  createdOrUpdated = createdOrUpdated ?? handleDate(createdAt, updatedAt);
+  createdOrUpdated = createdOrUpdated ?? (
+    <HandleDate updated={blog.updatedAt} />
+  );
   useEffect(() => {
     if (!state) {
       fetch(`${SERVER_URL}/blogs/${id}`, {
