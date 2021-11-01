@@ -14,7 +14,7 @@ const Markdown = ({ location }) => {
   const [tag, setTag] = useState([]);
 
   const handleChecked = () => {
-    setChecked(!checked);
+    setChecked((prev) => !prev);
   };
 
   let history = useHistory();

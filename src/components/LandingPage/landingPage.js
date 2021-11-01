@@ -28,7 +28,6 @@ const LandingPage = () => {
     ? "Nothing"
     : !filter
     ? Blogs.map((blog) => {
-        const createdOrUpdated = <HandleDate updated={blog.updatedAt} />;
         return (
           <Card
             setFilter={setFilter}
@@ -37,7 +36,8 @@ const LandingPage = () => {
             nonPublic={blog.private === "true"}
             categories={blog.categories}
             id={blog._id}
-            createdOrUpdated={createdOrUpdated}
+            handleDate={HandleDate}
+            updatedAt={blog.updatedAt}
             short={blog.short}
             title={blog.title}
             long={blog.long}
@@ -45,7 +45,6 @@ const LandingPage = () => {
         );
       })
     : filteredBlogs.map((blog) => {
-        const createdOrUpdated = <HandleDate updated={blog.updatedAt} />;
         return (
           <Card
             setFilter={setFilter}
@@ -54,7 +53,8 @@ const LandingPage = () => {
             nonPublic={blog.private === "true"}
             categories={blog.categories}
             id={blog._id}
-            createdOrUpdated={createdOrUpdated}
+            handleDate={HandleDate}
+            updatedAt={blog.updatedAt}
             short={blog.short}
             title={blog.title}
             long={blog.long}

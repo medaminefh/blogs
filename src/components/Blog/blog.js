@@ -16,44 +16,50 @@ const Blog = ({ match, location }) => {
       ? "http://localhost:5000/api"
       : process.env.REACT_APP_SERVER_URL;
   const { id } = match.params;
-  const { state, pathname } = location;
-  const [blog, setBlog] = useState(state || "");
+  const { pathname } = location;
+  const [blog, setBlog] = useState("");
   let {
     title,
     img_url,
     short,
     long,
     updatedAt,
-    createdOrUpdated,
     categories,
-    nonPublic,
+    private: nonPublic,
+    counter,
   } = blog;
   const token = localStorage.token;
-  createdOrUpdated = createdOrUpdated ?? (
-    <HandleDate updated={blog.updatedAt} />
-  );
+
   useEffect(() => {
-    if (!state) {
-      fetch(`${SERVER_URL}/blogs/${id}`, {
-        method: "GET",
-        headers: { "content-type": "application/json", authorization: token },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          if (data.err) {
-            history.push("/");
-            return;
-          }
-          setBlog(data);
-          if (token) {
-            setBlog((prev) => ({ ...prev, token }));
-          }
-        })
-        .catch((err) => {
-          console.log(err);
+    fetch(`${SERVER_URL}/blogs/${id}`, {
+      method: "GET",
+      headers: { "content-type": "application/json", authorization: token },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.err) {
           history.push("/");
-        });
-    }
+          return;
+        }
+        setBlog(data);
+
+        // smooth scroll to top
+        setTimeout(() => {
+          window.scrollTo({
+            top: 0,
+            left: 0,
+            behavior: "smooth",
+          });
+        }, "3s");
+
+        if (token) {
+          setBlog((prev) => ({ ...prev, token }));
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        history.push("/");
+      });
   }, []);
 
   const handleRemove = () => {
@@ -112,9 +118,8 @@ const Blog = ({ match, location }) => {
                   img_url,
                   short,
                   long,
-                  createdOrUpdated,
                   categories,
-                  nonPublic,
+                  nonPublic: nonPublic === "true",
                 },
               }}
               className="btn btn-back"
@@ -125,7 +130,7 @@ const Blog = ({ match, location }) => {
         )}
       </div>
       <div className="card card-page">
-        <div className="post-date">{createdOrUpdated}</div>
+        <HandleDate updated={updatedAt} counter={counter} />
         <div className="post-body">
           <div
             dangerouslySetInnerHTML={{

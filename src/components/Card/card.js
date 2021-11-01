@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import HandleBadges from "../utils/handlebadges";
+//import HandleDate from "../utils/handleDate";
 
 export default function Card({
   id,
   img_url,
   categories,
   nonPublic,
-  createdOrUpdated,
+  updatedAt,
   short,
   long,
   title,
   setFilter,
+  handleDate: HandleDate,
 }) {
   const token = localStorage.token;
 
@@ -36,7 +38,7 @@ export default function Card({
           : "card"
       }
     >
-      <div className="post-date">{createdOrUpdated}</div>
+      <HandleDate updated={updatedAt} />
 
       <h3>{title}</h3>
 
@@ -51,16 +53,6 @@ export default function Card({
       <Link
         to={{
           pathname: `/blog/${id}`,
-          state: {
-            title,
-            img_url,
-            short,
-            long,
-            nonPublic,
-            createdOrUpdated,
-            categories,
-            token,
-          },
         }}
         className="btn"
       >
