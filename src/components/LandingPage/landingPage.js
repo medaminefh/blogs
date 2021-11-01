@@ -14,7 +14,7 @@ const LandingPage = () => {
       ? "http://localhost:5000/api"
       : process.env.REACT_APP_SERVER_URL;
   const [Blogs, setBlogs] = useState([]);
-  const [filteredBlogs, setfilteredBlogs] = useState(Blogs);
+  const [filteredBlogs, setfilteredBlogs] = useState([]);
 
   const HandleFilter = () => {
     setfilteredBlogs(Blogs.filter((blog) => blog.categories.includes(filter)));
