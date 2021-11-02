@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import HandleBadges from "../utils/handlebadges";
-//import HandleDate from "../utils/handleDate";
 
 export default function Card({
   id,
@@ -9,7 +8,6 @@ export default function Card({
   nonPublic,
   updatedAt,
   short,
-  long,
   title,
   setFilter,
   handleDate: HandleDate,

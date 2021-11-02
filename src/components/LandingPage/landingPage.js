@@ -8,12 +8,14 @@ import { Link } from "react-router-dom";
 const LandingPage = () => {
   const token = localStorage.token;
   const [ErrorFetching, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [filter, setFilter] = useState("");
   const ServerURL =
     process.env.NODE_ENV === "development"
       ? "http://localhost:5000/api"
       : process.env.REACT_APP_SERVER_URL;
   const [Blogs, setBlogs] = useState([]);
+  const [pages, setPages] = useState(1);
   const [filteredBlogs, setfilteredBlogs] = useState([]);
 
   const HandleFilter = () => {
@@ -62,11 +64,43 @@ const LandingPage = () => {
         );
       });
 
+  const loadMore = () => {
+    setPages(pages + 1);
+    setLoading(true);
+    setTimeout(() => {
+      // you're at the bottom of the page
+      fetch(ServerURL + `/blogs/?pages=${pages}`, {
+        headers: { authorization: token },
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          setLoading(false);
+          if (data.err) {
+            setPages(false);
+            return;
+          }
+          setBlogs((prev) => [...prev, ...data.blogs]);
+          if (data.blogs.length < 10) {
+            setPages(false);
+            return;
+          }
+          setPages(Math.ceil(data.pages));
+        })
+        .catch((err) => {
+          console.log(err);
+          setError(true);
+          return;
+        });
+    }, 1000);
+  };
+
   useEffect(() => {
     fetch(ServerURL + "/blogs", { headers: { authorization: token } })
       .then((res) => res.json())
       .then((data) => {
-        setBlogs((prev) => [...prev, ...data]);
+        if (data.err) return;
+        setBlogs(data.blogs);
+        setPages(Math.ceil(data.pages));
       })
       .catch((err) => {
         console.log(err);
@@ -88,13 +122,22 @@ const LandingPage = () => {
             type="button"
             className="btn-close"
             title="Clear filter"
-            onClick={() => setFilter("")}
+            onClick={() => {
+              setFilter("");
+              setfilteredBlogs([]);
+            }}
           ></button>
         )}
       </div>
       <SmoothList delay={130} className="posts mb-5">
         {showBlogs}
       </SmoothList>
+
+      {pages && (
+        <button onClick={loadMore} className="btn btn-primary">
+          {loading ? "Loading..." : "Load More"}
+        </button>
+      )}
     </>
   ) : ErrorFetching ? (
     <h2>There is something wrong, Please do Refresh or come later</h2>
