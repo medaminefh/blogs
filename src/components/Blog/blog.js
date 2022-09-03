@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useHistory } from "react-router-dom";
 import Loading from "../utils/loading";
-import marked from "marked";
+import { marked } from "marked";
 import HandleDate from "../utils/handleDate";
 import { showErrMsg } from "../utils/notification";
 import { showSuccessMsg } from "../utils/notification";
