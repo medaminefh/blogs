@@ -5,6 +5,9 @@ import "easymde/dist/easymde.min.css";
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Blog from "@/views/Blog.vue";
+import Admin from "./views/Admin.vue";
+
+import "@/assets/index.css";
 
 const routes = [
 	{
@@ -16,6 +19,11 @@ const routes = [
 		path: "/blog",
 		name: "Blog",
 		component: Blog,
+	},
+	{
+		path: "/admin",
+		name: "Admin",
+		component: Admin,
 	},
 	{
 		path: "/:pathMatch(.*)*",
