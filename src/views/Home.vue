@@ -1,24 +1,20 @@
-<!-- <template>
-	<h2>Home page</h2>
-	<vue-easymde v-model="test" ref="editorInstance" />
-</template>
-
-<script setup lang="ts">
-import { ref } from "vue";
-
-const test = ref("initial value");
-</script> -->
-
 <template>
+	<SearchForm />
 	<div
 		class="container d-flex w-100 justify-content-between align-items-center"
 	>
 		<RouterLink to="/blog/create" class="btn btn-primary"> Create </RouterLink>
-		<button type="button" className="btn-close" title="Clear filter"></button>
+		<button title="Clear filter">X</button>
 	</div>
+
 	<Transition>
 		<ul class="posts mb-5">
+			<SkeletonVue
+				v-for="i in [1, 2, 3, 4, 5, 6, 7]"
+				v-if="state.blogs.length == 0"
+			/>
 			<Card
+				v-else
 				v-for="blog in state.blogs"
 				:setFilter="setFilter"
 				:key="blog._id"
@@ -39,6 +35,8 @@ const test = ref("initial value");
 
 <script setup lang="ts">
 import Card from "@/components/Card.vue";
+import SkeletonVue from "@/components/Skeleton.vue";
+import SearchForm from "@/components/SearchForm.vue";
 import { onMounted, watch } from "vue";
 import { ref } from "vue";
 

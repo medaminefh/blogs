@@ -6,6 +6,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Blog from "@/views/Blog.vue";
 import Admin from "./views/Admin.vue";
+import CreateBlog from "@/views/Create.vue";
 
 import "@/assets/index.css";
 
@@ -16,7 +17,7 @@ const routes = [
 		component: Home,
 	},
 	{
-		path: "/blog",
+		path: "/blog/:id",
 		name: "Blog",
 		component: Blog,
 	},
@@ -24,6 +25,11 @@ const routes = [
 		path: "/admin",
 		name: "Admin",
 		component: Admin,
+	},
+	{
+		path: "/blog/create",
+		name: "Create",
+		component: CreateBlog,
 	},
 	{
 		path: "/:pathMatch(.*)*",

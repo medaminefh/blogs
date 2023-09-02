@@ -1,0 +1,3 @@
+<template>
+	<vue-easymde />
+</template>
