@@ -5,6 +5,9 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+  easymde:
+    specifier: ^2.18.0
+    version: 2.18.0
   vue:
     specifier: ^3.3.4
     version: 3.3.4
@@ -14,6 +17,9 @@ dependencies:
   vue3-easymde:
     specifier: ^1.0.1
     version: 1.0.1(easymde@2.18.0)(vue@3.3.4)
+  vue3-google-login:
+    specifier: ^2.0.20
+    version: 2.0.20(vue@3.3.4)
 
 devDependencies:
   '@types/node':
@@ -34,6 +40,9 @@ devDependencies:
   tailwindcss:
     specifier: ^3.3.3
     version: 3.3.3
+  tslib:
+    specifier: ^2.6.2
+    version: 2.6.2
   typescript:
     specifier: ^5.1.3
     version: 5.1.3
@@ -1131,6 +1140,10 @@ packages:
     resolution: {integrity: sha512-Y/arvbn+rrz3JCKl9C4kVNfTfSm2/mEp5FSz5EsZSANGPSlQrpRI5M4PKF+mJnE52jOO90PnPSc3Ur3bTQw0gA==}
     dev: true
 
+  /tslib@2.6.2:
+    resolution: {integrity: sha512-AEYxH93jGFPn/a2iVAwW87VuUIkR1FVUKB77NwMF7nBTDkDrrT/Hpt/IrCJ0QXhW27jTBDcf5ZY7w6RiqTMw2Q==}
+    dev: true
+
   /typescript@5.1.3:
     resolution: {integrity: sha512-XH627E9vkeqhlZFQuL+UsyAXEnibT0kWR2FWONlr4sTjvxyJYnyefgrkyECLzM5NenmKzRAy2rR/OlYLA1HkZw==}
     engines: {node: '>=14.17'}
@@ -1230,6 +1243,14 @@ packages:
       vue: ^3.2.25
     dependencies:
       easymde: 2.18.0
+      vue: 3.3.4
+    dev: false
+
+  /vue3-google-login@2.0.20(vue@3.3.4):
+    resolution: {integrity: sha512-JGXW0gx1Lg6zPSBWoquT+1TVS35V/zhSgkmzBjz+IfJzMN6cSBWLg1ELRF/47VGI8bmDFH8XgpxPqs3CTDHN5g==}
+    peerDependencies:
+      vue: ^3.0.3
+    dependencies:
       vue: 3.3.4
     dev: false
 
