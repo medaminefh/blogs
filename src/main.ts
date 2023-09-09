@@ -1,4 +1,5 @@
 import { createApp } from "vue";
+import { createPinia } from "pinia";
 import App from "./App.vue";
 import VueEasymde from "vue3-easymde";
 import { createRouter, createWebHistory } from "vue-router";
@@ -7,6 +8,7 @@ import Blog from "@/views/Blog.vue";
 import Admin from "./views/Admin.vue";
 import CreateBlog from "@/views/Create.vue";
 import vue3GoogleLogin from "vue3-google-login";
+import { isAuthenticated } from "./utils";
 
 import "@/assets/index.css";
 
@@ -29,6 +31,11 @@ const routes = [
 	{
 		path: "/blog/create",
 		name: "Create",
+		beforeEnter: (to: any, from: any, next: any) => {
+			// reject the navigation
+			if (isAuthenticated()) next();
+			else next({ name: "Home" });
+		},
 		component: CreateBlog,
 	},
 	{
@@ -43,9 +50,12 @@ const router = createRouter({
 	history: createWebHistory(),
 });
 
+const pinia = createPinia();
+
 createApp(App)
-	.use(VueEasymde)
 	.use(router)
+	.use(pinia)
+	.use(VueEasymde)
 	.use(vue3GoogleLogin, {
 		clientId: import.meta.env.VITE_GOOGLE_CLIENT_ID,
 	})

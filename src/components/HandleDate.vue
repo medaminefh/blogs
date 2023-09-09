@@ -6,13 +6,13 @@
 
 <script setup lang="ts">
 const props = withDefaults(
-	defineProps<{ UpdatedAt: string; counter: number }>(),
+	defineProps<{ updatedAt: string; counter: number }>(),
 	{
-		UpdatedAt: "",
+		updatedAt: "",
 	}
 );
 
-const updatedAtDateObj = new Date(props.UpdatedAt);
+const updatedAtDateObj = new Date(props.updatedAt);
 const options = { year: "numeric", month: "short", day: "numeric" };
 const updatedAt = updatedAtDateObj.toLocaleDateString(
 	"en-US",

@@ -1,23 +1,28 @@
 <template>
 	<div class="card">
-		<HandleDate :UpdatedAt="updatedAt" />
+		<HandleDate :updatedAt="blog.updatedAt" />
 
-		<h3>{{ title }}</h3>
+		<h3>{{ blog.title }}</h3>
 
-		<p>{{ short }}</p>
-		<img v-if="img_url" :src="img_url" :alt="title" />
+		<p>{{ blog.short }}</p>
+		<img v-if="blog.img_url" :src="blog.img_url" :alt="blog.title" />
 
 		<div class="d-flex flex-wrap justify-content-around mt-2 mb-2">
 			<div
-				v-for="category in categories"
+				v-for="category in blog.categories"
 				style="cursor: 'pointer'"
 				:key="Math.random() * 60000"
 			>
-				<HandleBadges :category="category" />
+				<HandleBadges
+					:category="category"
+					@handelFilterBy="(e) => $emit('handelFilterBy', e)"
+				/>
 			</div>
 		</div>
 
-		<RouterLink :to="`/blog/${id}`" class="btn"> read More </RouterLink>
+		<RouterLink :to="{ name: 'Blog', params: { id: blog._id } }" class="btn">
+			read More
+		</RouterLink>
 	</div>
 </template>
 
@@ -26,27 +31,33 @@ import { RouterLink } from "vue-router";
 import HandleBadges from "@/components/HandleBadges.vue";
 import HandleDate from "@/components/HandleDate.vue";
 
-interface Props {
-	id: number;
-	img_url: string;
-	categories: string;
-	nonPublic: boolean;
+interface Blog {
+	_id: string;
 	updatedAt: string;
+	categories: string[];
+	long: string;
 	short: string;
 	title: string;
-	setFilter: string;
-	handleDate: string;
+	img_url: string;
+}
+
+interface Props {
+	blog: Blog;
 }
 
 withDefaults(defineProps<Props>(), {
-	id: 0,
-	img_url: "",
-	categories: "",
-	nonPublic: true,
-	updatedAt: "",
-	short: "",
-	title: "",
-	setFilter: "",
-	handleDate: "",
+	blog: {
+		_id: "",
+		updatedAt: "",
+		categories: [],
+		long: "",
+		short: "",
+		title: "",
+		img_url: "",
+	},
 });
+
+defineEmits<{
+	(e: "handelFilterBy", tag: string): void;
+}>();
 </script>

@@ -1,7 +1,14 @@
 <template>
-	<header>
-		<div className="container">
+	<header class="py-5">
+		<div className="container flex justify-between items-center">
 			<h2>Med Blogs</h2>
+			<RouterLink
+				v-if="isAuthenticated()"
+				to="/blog/create"
+				class="bg-white hover:bg-gray-100 text-gray-800 font-medium py-2 px-4 border border-gray-400"
+			>
+				Create
+			</RouterLink>
 		</div>
 	</header>
 	<router-view v-slot="{ Component }">
@@ -47,7 +54,9 @@
 		<span>&copy;medaminefh</span>
 	</footer>
 </template>
-<script lang="ts" setup></script>
+<script lang="ts" setup>
+import { isAuthenticated } from "@/utils";
+</script>
 
 <style>
 /* we will explain what these classes do next! */

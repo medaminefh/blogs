@@ -1,23 +1,25 @@
 <template>
 	<SearchForm />
-	<div
-		class="container d-flex w-100 justify-content-between align-items-center"
-	>
-		<RouterLink to="/blog/create" class="btn btn-primary"> Create </RouterLink>
-		<button title="Clear filter">X</button>
+	<div class="container flex justify-end">
+		<button
+			@click="filterBy = ''"
+			title="Clear filter"
+			class="mt-4 w-10 h-10 rounded-full text-lg text-center border border-slate-500 cursor-pointer"
+		>
+			X
+		</button>
 	</div>
-
-	<Transition>
-		<ul class="posts mb-5">
-			<SkeletonVue
-				v-for="i in [1, 2, 3, 4, 5, 6, 7]"
-				v-if="state.blogs.length == 0"
-			/>
+	<ul class="posts mb-5">
+		<SkeletonVue
+			v-for="i in [1, 2, 3, 4, 5, 6, 7]"
+			v-if="state.blogs.length == 0"
+		/>
+		<TransitionGroup name="list" v-else>
 			<Card
-				v-else
-				v-for="blog in state.blogs"
-				:setFilter="setFilter"
-				:key="blog._id"
+				v-for="(blog, index) in filteredBlogs"
+				@handelFilterBy="handelFilterBy"
+				:blog="blog"
+				:key="index"
 				:img_url="blog.img_url"
 				:nonPublic="blog.private === 'true'"
 				:categories="blog.categories"
@@ -28,8 +30,8 @@
 				:title="blog.title"
 				:long="blog.long"
 			/>
-		</ul>
-	</Transition>
+		</TransitionGroup>
+	</ul>
 	<button className="btn btn-primary">Load More</button>
 </template>
 
@@ -37,10 +39,10 @@
 import Card from "@/components/Card.vue";
 import SkeletonVue from "@/components/Skeleton.vue";
 import SearchForm from "@/components/SearchForm.vue";
-import { onMounted, watch } from "vue";
-import { ref } from "vue";
+import { onMounted } from "vue";
+import { ref, reactive, computed } from "vue";
 
-const state = ref({
+const state = reactive({
 	blogs: [],
 	pages: 1,
 	token: localStorage.token,
@@ -48,24 +50,41 @@ const state = ref({
 	error: false,
 });
 
+const filterBy = ref("");
+const handelFilterBy = (tag: string) => (filterBy.value = tag);
+const filteredBlogs = computed(() => {
+	if (filterBy.value)
+		return state.blogs.filter((blog) =>
+			blog.categories.includes(filterBy.value)
+		);
+	return state.blogs;
+});
+
 onMounted(() => {
-	fetch(state.value.ServerURL + "/blogs", {
-		headers: { authorization: state.value.token },
+	fetch(state.ServerURL + "/blogs", {
+		headers: { authorization: state.token },
 	})
 		.then((res) => res.json())
 		.then((data) => {
 			if (data.err) return;
-			state.value.blogs = data.blogs;
-			state.value.pages = Math.ceil(data.pages);
+			state.blogs = data.blogs;
+			state.pages = Math.ceil(data.pages);
 		})
 		.catch((err) => {
 			console.log(err);
-			state.value.error = true;
+			state.error = true;
 			return;
 		});
 });
-
-watch(state.value.blogs, (newValue) => {
-	console.log({ newValue });
-});
 </script>
+<style>
+.list-enter-active,
+.list-leave-active {
+	transition: all 0.5s ease;
+}
+.list-enter-from,
+.list-leave-to {
+	opacity: 0;
+	transform: translateX(30px);
+}
+</style>
