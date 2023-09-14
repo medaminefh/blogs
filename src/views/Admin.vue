@@ -96,7 +96,6 @@ const postData = async (respo: string) => {
 
 const callback = async (response: any) => {
 	const res = await postData(response.credential);
-	console.log({ res });
 	state.msg = res.msg;
 	if (res.token) {
 		localStorage.token = res.token;
@@ -104,7 +103,6 @@ const callback = async (response: any) => {
 		router.back();
 		return;
 	} else {
-		console.log({ msg: res.msg });
 		state.err = true;
 	}
 };
@@ -115,7 +113,6 @@ onMounted(() => {
 			const response = await googleOneTap();
 			// This promise is resolved when the user selects an account from the One Tap prompt
 			const res = await postData(response.credential);
-			console.log({ res });
 			state.msg = res.msg;
 			if (res.token) {
 				localStorage.token = res.token;

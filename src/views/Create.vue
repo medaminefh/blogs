@@ -14,10 +14,9 @@ const state = reactive({
 });
 
 const handelDeleteTag = (category: string) => {
-	console.log({ category });
 	const newCategories = state.categories.filter((cat) => cat !== category);
-	console.log({ newCategories });
 	state.categories = newCategories;
+	console.log({ newCategories, state: state.categories });
 };
 
 const handleSubmit = (e: Event) => {
@@ -98,14 +97,13 @@ watch(
 		</div>
 
 		<div class="flex space-x-2 mb-4">
-			<div
+			<HandleBadges
 				v-for="(cat, index) in state.categories"
 				:key="index"
-				@click="() => handelDeleteTag(cat)"
 				class="cursor-pointer"
-			>
-				<HandleBadges :category="cat" />
-			</div>
+				@click="() => handelDeleteTag(cat)"
+				:category="cat"
+			/>
 		</div>
 
 		<div class="relative z-0 w-full mb-8 group">

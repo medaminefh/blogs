@@ -7,16 +7,13 @@
 		<p>{{ blog.short }}</p>
 		<img v-if="blog.img_url" :src="blog.img_url" :alt="blog.title" />
 
-		<div class="d-flex flex-wrap justify-content-around mt-2 mb-2">
+		<div class="flex flex-wrap my-2 space-x-2">
 			<div
 				v-for="category in blog.categories"
-				style="cursor: 'pointer'"
+				class="cursor-pointer"
 				:key="Math.random() * 60000"
 			>
-				<HandleBadges
-					:category="category"
-					@handelFilterBy="(e) => $emit('handelFilterBy', e)"
-				/>
+				<HandleBadges :category="category" @handelFilterBy="handelClick" />
 			</div>
 		</div>
 
@@ -30,34 +27,19 @@
 import { RouterLink } from "vue-router";
 import HandleBadges from "@/components/HandleBadges.vue";
 import HandleDate from "@/components/HandleDate.vue";
-
-interface Blog {
-	_id: string;
-	updatedAt: string;
-	categories: string[];
-	long: string;
-	short: string;
-	title: string;
-	img_url: string;
-}
+import { IBlog } from "@/types";
 
 interface Props {
-	blog: Blog;
+	blog: IBlog;
 }
 
-withDefaults(defineProps<Props>(), {
-	blog: {
-		_id: "",
-		updatedAt: "",
-		categories: [],
-		long: "",
-		short: "",
-		title: "",
-		img_url: "",
-	},
-});
+defineProps<Props>();
 
-defineEmits<{
+const emits = defineEmits<{
 	(e: "handelFilterBy", tag: string): void;
 }>();
+
+const handelClick = (tag: string) => {
+	emits("handelFilterBy", tag);
+};
 </script>

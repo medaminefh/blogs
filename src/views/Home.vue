@@ -1,7 +1,8 @@
 <template>
-	<SearchForm />
+	<SearchForm @handelSearch="handelSearch" />
 	<div class="container flex justify-end">
 		<button
+			v-if="filterBy != ''"
 			@click="filterBy = ''"
 			title="Clear filter"
 			class="mt-4 w-10 h-10 rounded-full text-lg text-center border border-slate-500 cursor-pointer"
@@ -20,19 +21,15 @@
 				@handelFilterBy="handelFilterBy"
 				:blog="blog"
 				:key="index"
-				:img_url="blog.img_url"
-				:nonPublic="blog.private === 'true'"
-				:categories="blog.categories"
-				:id="blog._id"
-				:handleDate="HandleDate"
-				:updatedAt="blog.updatedAt"
-				:short="blog.short"
-				:title="blog.title"
-				:long="blog.long"
 			/>
 		</TransitionGroup>
 	</ul>
-	<button className="btn btn-primary">Load More</button>
+	<ul v-if="state.loading" class="posts mb-5">
+		<SkeletonVue v-for="i in [1, 2, 3]" />
+	</ul>
+	<button v-if="state.pages" className="btn btn-primary" @click="loadMore">
+		Load More
+	</button>
 </template>
 
 <script setup lang="ts">
@@ -41,18 +38,33 @@ import SkeletonVue from "@/components/Skeleton.vue";
 import SearchForm from "@/components/SearchForm.vue";
 import { onMounted } from "vue";
 import { ref, reactive, computed } from "vue";
+import { IBlog } from "@/types";
 
-const state = reactive({
+const state: {
+	blogs: IBlog[];
+	pages: number;
+	token: string;
+	ServerURL: string;
+	error: boolean;
+	search: string;
+	loading: boolean;
+} = reactive({
 	blogs: [],
 	pages: 1,
 	token: localStorage.token,
 	ServerURL: import.meta.env.VITE_SERVER_URL,
 	error: false,
+	search: "",
+	loading: false,
 });
 
 const filterBy = ref("");
 const handelFilterBy = (tag: string) => (filterBy.value = tag);
 const filteredBlogs = computed(() => {
+	if (state.search)
+		return state.blogs.filter((blog) =>
+			blog.title.toLocaleLowerCase().includes(state.search.toLocaleLowerCase())
+		);
 	if (filterBy.value)
 		return state.blogs.filter((blog) =>
 			blog.categories.includes(filterBy.value)
@@ -76,6 +88,39 @@ onMounted(() => {
 			return;
 		});
 });
+
+const handelSearch = (search: string) => {
+	state.search = search;
+};
+
+const loadMore = () => {
+	state.loading = true;
+	setTimeout(() => {
+		// you're at the bottom of the page
+		fetch(state.ServerURL + `/blogs/?pages=${state.pages}`, {
+			headers: { authorization: state.token },
+		})
+			.then((res) => res.json())
+			.then((data) => {
+				state.loading = false;
+				if (data.err) {
+					state.pages = NaN;
+					return;
+				}
+				state.blogs = [...state.blogs, ...data.blogs];
+				if (data.blogs.length < 10) {
+					state.pages = NaN;
+					return;
+				}
+				state.pages = Math.ceil(data.pages);
+			})
+			.catch((err) => {
+				console.log(err);
+				state.error = true;
+				return;
+			});
+	}, 1000);
+};
 </script>
 <style>
 .list-enter-active,
