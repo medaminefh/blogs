@@ -6,7 +6,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Blog from "@/views/Blog.vue";
 import Admin from "./views/Admin.vue";
-import CreateBlog from "@/views/Create.vue";
+import CreateBlog from "@/views/CreateBlog.vue";
 import vue3GoogleLogin from "vue3-google-login";
 import { isAuthenticated } from "./utils";
 

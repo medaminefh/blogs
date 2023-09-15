@@ -13,7 +13,7 @@
 				class="cursor-pointer"
 				:key="Math.random() * 60000"
 			>
-				<HandleBadges :category="category" @handelFilterBy="handelClick" />
+				<HandleBadges :category="category" @click="handelClick(category)" />
 			</div>
 		</div>
 

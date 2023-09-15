@@ -1,6 +1,5 @@
 <template>
 	<span
-		@click="$emit('handelFilterBy', category)"
 		:class="[
 			classes[category]
 				? classes[category]
@@ -33,8 +32,4 @@ const classes = {
 	nodejs: "bg-green-300 text-green-800 border-green-800",
 	express: "bg-purple-400 text-purple-800 border-purple-800",
 };
-
-defineEmits<{
-	(e: "handelFilterBy", tag: string): void;
-}>();
 </script>

@@ -1,5 +1,5 @@
 export interface IBlog {
-	_id: string;
+	_id?: string;
 	updatedAt: string;
 	categories: string[];
 	long: string;

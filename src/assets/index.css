@@ -138,42 +138,6 @@ ol {
   }
 }
 
-/* For Icons */
-.bg-HtmlRed {
-  background-color: #f53900;
-}
-.bg-CssBlue {
-  background-color: #2965f1;
-}
-.bg-JsYellow {
-  background-color: #f7df1e;
-}
-
-.bg-ReactBlue {
-  background-color: #61daf6;
-}
-
-.bg-pistach {
-  background-color: #6ecb63;
-}
-
-.bg-darkGreen {
-  background-color: #127719;
-}
-
-.bg-lightBlue {
-  background-color: #a2cdcd;
-}
-.bg-darkBlue {
-  background-color: #316b83;
-}
-.bg-darkPurple {
-  background-color: #610094;
-}
-.bg-lightPurple {
-  background-color: #ae00fb;
-}
-
 ul.social__media {
   margin: 0;
   padding: 0;

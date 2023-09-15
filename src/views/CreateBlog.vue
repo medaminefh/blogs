@@ -98,10 +98,10 @@ watch(
 
 		<div class="flex space-x-2 mb-4">
 			<HandleBadges
-				v-for="(cat, index) in state.categories"
-				:key="index"
+				v-for="cat in state.categories"
+				:key="cat"
 				class="cursor-pointer"
-				@click="() => handelDeleteTag(cat)"
+				@click="handelDeleteTag(cat)"
 				:category="cat"
 			/>
 		</div>
