@@ -1,7 +1,8 @@
 <script setup lang="ts">
 import HandleBadges from "@/components/HandleBadges.vue";
 import "easymde/dist/easymde.min.css";
-import { reactive, watch } from "vue";
+import { reactive, ref, watch } from "vue";
+import { useRouter } from "vue-router";
 
 const state = reactive({
 	title: "",
@@ -12,16 +13,52 @@ const state = reactive({
 	private: false,
 	tag: "",
 });
-
+const error = ref(null);
+const success = ref(null);
+const token = localStorage.getItem("token");
 const handelDeleteTag = (category: string) => {
 	const newCategories = state.categories.filter((cat) => cat !== category);
 	state.categories = newCategories;
 	console.log({ newCategories, state: state.categories });
 };
 
+const router = useRouter();
+
 const handleSubmit = (e: Event) => {
 	e.preventDefault();
-	console.log({ state });
+
+	fetch(`${import.meta.env.VITE_SERVER_URL}/blogs`, {
+		method: "POST",
+		headers: {
+			"content-type": "application/json",
+			authorization: token as string,
+		},
+		body: JSON.stringify({
+			title: state.title,
+			img_url: state.img,
+			short: state.short,
+			long: state.long,
+			categories: state.categories,
+			private: state.private,
+		}),
+	})
+		.then((res) => res.json())
+		.then((data) => {
+			// show some Notification in the ui
+
+			if (data.err) {
+				error.value = data.err;
+				success.value = "";
+				return;
+			}
+			error.value = "";
+			success.value = data.msg;
+			router.push({ path: "/blogs" });
+		})
+		.catch((err) => {
+			error.value = err;
+			success.value = "";
+		});
 };
 
 watch(
@@ -40,6 +77,7 @@ watch(
 );
 </script>
 <template>
+	<p>{{ error || success }}</p>
 	<RouterLink
 		to="/"
 		class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-4xl py-2 px-4"
@@ -87,7 +125,6 @@ watch(
 				class="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none dark:text-white dark:border-gray-600 dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
 				placeholder=" "
 				v-model="state.img"
-				required
 			/>
 			<label
 				for="img"
