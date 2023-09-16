@@ -2,7 +2,7 @@ import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
 import VueEasymde from "vue3-easymde";
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import Home from "@/views/Home.vue";
 import Blog from "@/views/Blog.vue";
 import Admin from "./views/Admin.vue";
@@ -46,8 +46,8 @@ const routes = [
 ];
 
 const router = createRouter({
+	history: createWebHashHistory(import.meta.env.BASE_URL),
 	routes,
-	history: createWebHistory(),
 });
 
 const pinia = createPinia();

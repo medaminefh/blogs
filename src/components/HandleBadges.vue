@@ -4,7 +4,7 @@
 			classes[category]
 				? classes[category]
 				: 'bg-gray-400 text-gray-800 border-gray-400',
-			'text-sm font-medium px-2.5 py-0.5 rounded border',
+			'text-sm font-medium px-2.5 py-1.5 rounded border',
 		]"
 	>
 		<span className="text-secondary">#</span>

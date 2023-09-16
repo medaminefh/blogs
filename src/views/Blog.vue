@@ -22,7 +22,7 @@
 	<div v-if="blog && !edit" className="card card-page">
 		<HandleDate :updatedAt="blog.updatedAt" :counter="blog.counter" />
 		<div className="post-body">
-			<div v-html="marked.parse(blog.long)" />
+			<div class="overflow-scroll" v-html="marked.parse(blog.long)" />
 		</div>
 	</div>
 	<div v-if="blog && edit">

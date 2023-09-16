@@ -7,7 +7,7 @@
 		<p>{{ blog.short }}</p>
 		<img v-if="blog.img_url" :src="blog.img_url" :alt="blog.title" />
 
-		<div class="flex flex-wrap my-2 space-x-2">
+		<div class="flex flex-wrap my-4 gap-2">
 			<div
 				v-for="category in blog.categories"
 				class="cursor-pointer"
