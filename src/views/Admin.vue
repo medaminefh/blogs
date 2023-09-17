@@ -1,4 +1,10 @@
 <template>
+	<RouterLink
+		to="/"
+		class="bg-gray-100 hover:bg-gray-200 text-gray-800 font-bold text-4xl px-4 mb-5 rounded"
+	>
+		←
+	</RouterLink>
 	<div
 		v-if="state.msg"
 		class="flex items-center w-full max-w-xs p-4 mb-4 text-gray-500 bg-white rounded-lg shadow"

@@ -6,6 +6,6 @@ export interface IBlog {
 	short: string;
 	title: string;
 	img_url: string;
-	private: boolean;
+	private: "true" | "false";
 	counter?: number;
 }
