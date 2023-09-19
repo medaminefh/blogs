@@ -86,17 +86,38 @@ footer {
   margin-bottom: 20px;
 }
 
-.posts {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 30px;
-  margin-top: 30px;
-}
-
 .card {
+  position: relative;
   padding: 15px;
   border-radius: 10px;
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+.card::after {
+  position: absolute;
+  content: "";
+  top:-3px;
+  left:-3px;
+  width: 0;
+  height: 0;
+  z-index: -1;
+  border-radius: 15px;
+  transition: ease 0.3s;
+  
+}
+
+.card:nth-child(odd):after {
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+}
+
+.card:nth-child(even):after {
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+
+.card:hover::after{
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
 }
 
 .card img {
@@ -105,10 +126,6 @@ footer {
 
 .card-page {
   padding: 15px 30px;
-}
-
-.post-title {
-  margin: 10px 0;
 }
 
 .post-date {
@@ -130,12 +147,6 @@ ol {
   padding: 20px;
   margin: 20px 0;
   line-height: 2.3;
-}
-
-@media (max-width: 500px) {
-  .posts {
-    grid-template-columns: 1fr;
-  }
 }
 
 ul.social__media {
@@ -168,34 +179,4 @@ ul.social__media li a {
   text-align: center;
   padding: 10px 0;
   letter-spacing: 1.3px;
-}
-
-.card.private {
-  position: relative;
-}
-
-.card.private::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  right: 1em;
-  width: 1.5em;
-  height: 2em;
-  z-index: -1;
-  background-color: rgba(255, 99, 71, 0.712);
-}
-
-.card.public {
-  position: relative;
-}
-
-.card.public::before {
-  content: "";
-  position: absolute;
-  top: -1em;
-  right: 1em;
-  width: 1.5em;
-  height: 2em;
-  z-index: -1;
-  background-color: rgba(26, 200, 41, 0.767);
 }

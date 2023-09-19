@@ -1,19 +1,22 @@
 <template>
-	<div class="card">
-		<HandleDate :updatedAt="blog.updatedAt" />
+	<div class="card flex flex-col justify-between">
+		<div>
+			<HandleDate :updatedAt="blog.updatedAt" />
 
-		<h3 class="flex justify-between items-center gap-x-3">
-			<span>
-				{{ blog.title }}
-			</span>
+			<h3 class="flex justify-between items-center gap-x-3">
+				<span>
+					{{ blog.title }}
+				</span>
 
-			<span v-if="token && blog.private == 'true'" className="text-xl">
-				🌚
-			</span>
-		</h3>
-
-		<p>{{ blog.short }}</p>
-		<img v-if="blog.img_url" :src="blog.img_url" :alt="blog.title" />
+				<span v-if="token && blog.private == 'true'" className="text-xl">
+					🌚
+				</span>
+			</h3>
+		</div>
+		<div>
+			<p>{{ blog.short }}</p>
+			<img v-if="blog.img_url" :src="blog.img_url" :alt="blog.title" />
+		</div>
 
 		<div class="flex flex-wrap my-4 gap-2">
 			<div
@@ -24,7 +27,10 @@
 				<HandleBadges :category="category" @click="handelClick(category)" />
 			</div>
 		</div>
-		<RouterLink :to="{ name: 'Blog', params: { id: blog._id } }" class="btn">
+		<RouterLink
+			:to="{ name: 'Blog', params: { id: blog._id } }"
+			class="btn text-center lg:self-start"
+		>
 			read More
 		</RouterLink>
 	</div>

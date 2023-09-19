@@ -3,12 +3,12 @@ import { createPinia } from "pinia";
 import App from "./App.vue";
 import VueEasymde from "vue3-easymde";
 import { createRouter, createWebHashHistory } from "vue-router";
+import { isAuthenticated } from "./utils";
+import vue3GoogleLogin from "vue3-google-login";
 import Home from "@/views/Home.vue";
 import Blog from "@/views/Blog.vue";
 import Admin from "./views/Admin.vue";
 import CreateBlog from "@/views/CreateBlog.vue";
-import vue3GoogleLogin from "vue3-google-login";
-import { isAuthenticated } from "./utils";
 
 import "@/assets/index.css";
 

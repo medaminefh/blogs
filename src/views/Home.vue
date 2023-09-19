@@ -10,7 +10,7 @@
 			X
 		</button>
 	</div>
-	<ul class="posts mb-5">
+	<ul class="mb-5 grid sm:grid-cols-2 gap-7 mt-7">
 		<SkeletonVue
 			v-for="i in [1, 2, 3, 4, 5, 6, 7]"
 			v-if="state.blogs.length == 0"

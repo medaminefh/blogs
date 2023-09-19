@@ -19,10 +19,10 @@
 			</button>
 		</div>
 	</div>
-	<div v-if="blog && !edit" className="card card-page">
+	<div v-if="blog && !edit" className="card py-4 px7 mb-5">
 		<HandleDate :updatedAt="blog.updatedAt" :counter="blog.counter" />
 		<div className="post-body">
-			<div class="overflow-scroll" v-html="marked.parse(blog.long)" />
+			<div class="overflow-x-scroll" v-html="marked.parse(blog.long)" />
 		</div>
 	</div>
 	<div v-if="blog && edit">
