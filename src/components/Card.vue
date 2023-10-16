@@ -1,5 +1,5 @@
 <template>
-	<div class="card flex flex-col justify-between">
+	<div class="card flex flex-col justify-between max-w-xl">
 		<div>
 			<HandleDate :updatedAt="blog.updatedAt" />
 
@@ -17,22 +17,23 @@
 			<p>{{ blog.short }}</p>
 			<img v-if="blog.img_url" :src="blog.img_url" :alt="blog.title" />
 		</div>
-
-		<div class="flex flex-wrap my-4 gap-2">
-			<div
-				v-for="category in blog.categories"
-				class="cursor-pointer"
-				:key="Math.random() * 60000"
-			>
-				<HandleBadges :category="category" @click="handelClick(category)" />
+		<div>
+			<div class="flex flex-wrap my-4 gap-2">
+				<div
+					v-for="category in blog.categories"
+					class="cursor-pointer"
+					:key="Math.random() * 60000"
+				>
+					<HandleBadges :category="category" @click="handelClick(category)" />
+				</div>
 			</div>
+			<RouterLink
+				:to="{ name: 'Blog', params: { id: blog._id } }"
+				class="btn text-center lg:self-start"
+			>
+				read More
+			</RouterLink>
 		</div>
-		<RouterLink
-			:to="{ name: 'Blog', params: { id: blog._id } }"
-			class="btn text-center lg:self-start"
-		>
-			read More
-		</RouterLink>
 	</div>
 </template>
 

@@ -10,7 +10,9 @@
 			X
 		</button>
 	</div>
-	<ul class="mb-5 grid sm:grid-cols-2 gap-7 mt-7">
+	<ul
+		class="mb-5 grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7 mt-7"
+	>
 		<SkeletonVue
 			v-for="i in [1, 2, 3, 4, 5, 6, 7]"
 			v-if="state.blogs.length == 0"
@@ -24,8 +26,11 @@
 			/>
 		</TransitionGroup>
 	</ul>
-	<ul v-if="state.loading" class="posts mb-5">
-		<SkeletonVue v-for="i in [1, 2, 3]" />
+	<ul
+		v-if="state.loading"
+		class="mb-5 grid sm:grid-cols-2 lg:grid-cols-3 2xl:grid-cols-4 gap-7 mt-7"
+	>
+		<SkeletonVue v-for="i in [1, 2, 3, 4]" />
 	</ul>
 	<button v-if="state.pages" className="btn btn-primary" @click="loadMore">
 		Load More
