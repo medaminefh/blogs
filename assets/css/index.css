@@ -1,0 +1,173 @@
+@import url('https://fonts.googleapis.com/css2?family=Epilogue:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Epilogue", sans-serif;
+}
+
+p {
+  margin: 15px 0;
+  line-height: 1.8;
+}
+
+a {
+  text-decoration: none;
+  color: #333;
+}
+
+img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+header {
+  position: relative;
+  z-index: 2;
+  background: steelblue;
+  color: #fff;
+  padding: 5px;
+  margin-bottom: 40px;
+}
+
+footer {
+  position: relative;
+  bottom: 0;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+}
+
+.btn {
+  display: inline-block;
+  background: steelblue;
+  color: #fff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 15px;
+  font-family: inherit;
+}
+
+.btn:focus {
+  outline: none;
+}
+
+.btn:hover {
+  transform: scale(0.98);
+}
+
+.btn-back {
+  background: #f4f4f4;
+  color: #333333;
+  margin-bottom: 20px;
+}
+
+.card {
+  position: relative;
+  padding: 15px;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+  background-color: white;
+}
+
+.card::after {
+  position: absolute;
+  content: "";
+  top:-3px;
+  left:-3px;
+  width: 0;
+  height: 0;
+  z-index: -1;
+  border-radius: 15px;
+  transition: ease 0.3s;
+  
+}
+
+.card:nth-child(odd):after {
+  background-image: linear-gradient(to top, #fbc2eb 0%, #a6c1ee 100%);
+}
+
+.card:nth-child(even):after {
+  background-image: linear-gradient(to top, #cfd9df 0%, #e2ebf0 100%);
+}
+
+.card:hover::after{
+  width: calc(100% + 6px);
+  height: calc(100% + 6px);
+}
+
+.card img {
+  pointer-events: none;
+}
+
+.card-page {
+  padding: 15px 30px;
+}
+
+.post-date {
+  color: #383838c5;
+  font-family: "Merriweather", sans-serif;
+  margin-bottom: 20px;
+}
+
+.post-body ul,
+ol {
+  font-size: 110%;
+  line-height: 2.3;
+  font-weight: bold;
+  margin: 10px 0;
+}
+
+.post-body pre, .post-body code {
+  display: block;
+  background: #f4f4f4;
+  padding:20px;
+  white-space: pre;
+  max-width: 100%;
+  min-width: 100px;
+  line-height: 2.3;
+}
+
+ul.social__media {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  margin-top: 15px;
+}
+ul.social__media li {
+  list-style-type: none;
+  display: inline-block;
+  margin-right: 15px;
+}
+ul.social__media li a {
+  background-color: transparent;
+  font-size: 30px;
+  text-align: center;
+}
+.errMsg {
+  background: rgba(214, 10, 10, 0.712);
+  color: #fff9;
+  text-align: center;
+  padding: 10px 0;
+  letter-spacing: 1.3px;
+}
+
+.successMsg {
+  background: rgba(9, 158, 54, 0.664);
+  color: #fff9;
+  text-align: center;
+  padding: 10px 0;
+  letter-spacing: 1.3px;
+}

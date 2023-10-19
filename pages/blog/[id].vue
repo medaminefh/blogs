@@ -1,5 +1,5 @@
 <template>
-	<Blog />
+	<h2>Hello world</h2>
 </template>
 <script setup lang="ts">
 const route = useRoute();

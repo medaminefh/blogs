@@ -27,32 +27,29 @@
 				<HandleBadges :category="category" @click="handelClick(category)" />
 			</div>
 		</div>
-		<NuxtLink
-			:to="{ name: 'Blog', params: { id: blog._id } }"
-			class="btn text-center lg:self-start"
-		>
+		<NuxtLink :to="`/blog/${blog._id}`" class="btn text-center lg:self-start">
 			read More
 		</NuxtLink>
 	</div>
 </template>
 
 <script setup lang="ts">
-import { RouterLink } from "vue-router";
-import HandleBadges from "@/components/HandleBadges.vue";
-import HandleDate from "@/components/HandleDate.vue";
 import { IBlog } from "@/types";
+const config = useRuntimeConfig();
 
 interface Props {
 	blog: IBlog;
 }
 
-defineProps<Props>();
+const { blog } = defineProps<Props>();
+console.log({ config, blog });
 
 const emits = defineEmits<{
 	(e: "handelFilterBy", tag: string): void;
 }>();
 
-const token = localStorage.getItem("token");
+const token =
+	typeof window !== "undefined" ? localStorage.getItem("token") : null;
 
 const handelClick = (tag: string) => {
 	emits("handelFilterBy", tag);

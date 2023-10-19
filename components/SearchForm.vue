@@ -36,20 +36,9 @@
 </template>
 <script setup lang="ts">
 import { ref, watch } from "vue";
-import { debounce } from "@/utils";
 
 const search = ref("");
 const emits = defineEmits<{
 	(e: "handelSearch", tag: string): void;
 }>();
-
-// TODO : FIX this debounce function, it runs immidiatly
-watch(
-	() => search.value,
-	(newValue) => {
-		debounce(function () {
-			emits("handelSearch", newValue);
-		})();
-	}
-);
 </script>
